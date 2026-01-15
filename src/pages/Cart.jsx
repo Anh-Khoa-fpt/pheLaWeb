@@ -16,9 +16,9 @@ import { useCart } from '../contexts/CartContext'
 import { createMoMoPayment } from '../services/paymentService'
 
 const MOMO_RETURN_URL =
-  process.env.EXPO_PUBLIC_MOMO_RETURN_URL || 'https://your-frontend.dev/momo-return'
+  process.env.EXPO_PUBLIC_MOMO_RETURN_URL || 'https://phela.vercel.app/momo-return'
 const MOMO_IPN_URL =
-  process.env.EXPO_PUBLIC_MOMO_IPN_URL || 'https://your-frontend.dev/momo-ipn'
+  process.env.EXPO_PUBLIC_MOMO_IPN_URL || 'https://phela.vercel.app/momo-ipn'
 
 const formatCurrency = (value) =>
   value.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })
