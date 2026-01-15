@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const API_BASE =
-  process.env.EXPO_PUBLIC_PAYMENT_API || 'http://localhost:3000'
+  process.env.EXPO_PUBLIC_PAYMENT_API || 'https://momo-api-olive.vercel.app'
 
 const client = axios.create({
   baseURL: API_BASE,
