@@ -17,14 +17,14 @@ import { useCart } from '../contexts/CartContext'
 import { createMoMoPayment } from '../services/paymentService'
 import QRCode from 'qrcode'
 import { useNavigation } from '@react-navigation/native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { formatCurrency } from '../utils/currency'
+import { ORDER_HISTORY_KEY } from '../constants/storageKeys'
 
 const MOMO_RETURN_URL =
   process.env.EXPO_PUBLIC_MOMO_RETURN_URL || 'https://phela.vercel.app/momo-return'
 const MOMO_IPN_URL =
   process.env.EXPO_PUBLIC_MOMO_IPN_URL || 'https://phela.vercel.app/momo-ipn'
-
-const formatCurrency = (value) =>
-  value.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })
 
 const Cart = () => {
   const navigation = useNavigation()
@@ -77,7 +77,30 @@ const Cart = () => {
     setIsBankModalVisible(false)
   }
 
-  const finalizeBankPayment = () => {
+  const addOrderToHistory = async (entry) => {
+    try {
+      const stored = await AsyncStorage.getItem(ORDER_HISTORY_KEY)
+      const existing = stored ? JSON.parse(stored) : []
+      const updated = [entry, ...existing].slice(0, 20)
+      await AsyncStorage.setItem(ORDER_HISTORY_KEY, JSON.stringify(updated))
+    } catch (error) {
+      console.error('Không lưu được lịch sử đơn hàng', error)
+    }
+  }
+
+  const finalizeBankPayment = async () => {
+    const historyEntry = {
+      orderCode,
+      items: items.map((item) => ({
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity,
+      })),
+      total: totalPrice,
+      createdAt: new Date().toISOString(),
+    }
+    await addOrderToHistory(historyEntry)
     clearCart()
     navigation.navigate('Home', {
       bankSuccess: true,
@@ -91,7 +114,7 @@ const Cart = () => {
     setIsBankModalVisible(true)
     const timer = setTimeout(() => {
       handleCloseBankModal(false)
-      finalizeBankPayment()
+      void finalizeBankPayment()
     }, 30000)
     setBankTimerId(timer)
   }

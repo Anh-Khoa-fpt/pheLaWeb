@@ -15,6 +15,7 @@ const navItems = [
   { label: 'Tất cả sản phẩm', route: 'Product' },
   { label: 'Giới Thiệu', route: 'About' },
   { label: 'Liên Hệ', route: 'Contact' },
+  { label: 'Lịch sử đặt hàng', route: 'OrderHistory' },
   { label: 'Giỏ Hàng', route: 'Cart' },
 ]
 

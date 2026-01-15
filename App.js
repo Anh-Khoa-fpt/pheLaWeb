@@ -10,6 +10,7 @@ import Product from './src/pages/Product'
 import Cart from './src/pages/Cart'
 import About from './src/pages/About'
 import Contact from './src/pages/Contact'
+import OrderHistory from './src/pages/OrderHistory'
 
 const Stack = createNativeStackNavigator()
 
@@ -29,6 +30,7 @@ export default function App() {
           <Stack.Screen name="About" component={About} />
           <Stack.Screen name="Contact" component={Contact} />
           <Stack.Screen name="Cart" component={Cart} />
+          <Stack.Screen name="OrderHistory" component={OrderHistory} />
         </Stack.Navigator>
       </NavigationContainer>
     </CartProvider>
