@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "Fish App",
-    "slug": "fish-app-native",
+    "name": "pheLaOrderApp",
+    "slug": "phe-la-order-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/phela.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/phela.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -16,17 +16,17 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.fishapp.native"
+      "bundleIdentifier": "com.phela.orderapp"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/phela.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.fishapp.native"
+      "package": "com.phela.orderapp"
     },
     "web": {
-      "favicon": "./assets/favicon.png",
+      "favicon": "./assets/phela.png",
       "bundler": "webpack",
       "build": {
         "babel": {

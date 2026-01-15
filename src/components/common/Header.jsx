@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {
   View,
   Text,
@@ -8,48 +8,32 @@ import {
   ScrollView,
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { authAPI } from '../../services/api'
 import { useCart } from '../../contexts/CartContext'
-import { useAuth } from '../../contexts/AuthContext'
+
+const navItems = [
+  { label: 'Trang Chủ', route: 'Home' },
+  { label: 'Menu', route: 'Menu' },
+  { label: 'Tất cả sản phẩm', route: 'Product' },
+  { label: 'Giới Thiệu', route: 'About' },
+  { label: 'Liên Hệ', route: 'Contact' },
+  { label: 'Giỏ Hàng', route: 'Cart' },
+]
 
 const Header = () => {
   const navigation = useNavigation()
-  const { isLoggedIn, user, clearAuthState } = useAuth()
   const [menuOpen, setMenuOpen] = useState(false)
-  const { totalCount, clearCart } = useCart()
-
-  const handleLogout = async () => {
-    try {
-      await authAPI.logout()
-    } catch (error) {
-      console.error('Logout error:', error)
-      // Dù API có lỗi, vẫn xóa token và user ở local
-    } finally {
-      // Clear auth state (sẽ tự động xóa AsyncStorage)
-      await clearAuthState()
-      // Xóa giỏ hàng khi đăng xuất
-      clearCart()
-      navigation.navigate('Home')
-    }
-  }
-
-  const navItems = [
-    { label: 'Trang Chủ', route: 'Home' },
-    { label: 'Sản Phẩm', route: 'Products' },
-    { label: 'Giới Thiệu', route: 'About' },
-    { label: 'Liên Hệ', route: 'Contact' },
-  ]
+  const { totalCount } = useCart()
 
   return (
     <View style={styles.header}>
       <View style={styles.headerContainer}>
-        <TouchableOpacity
-          style={styles.logo}
-          onPress={() => navigation.navigate('Home')}
-        >
-          <Text style={styles.logoIcon}>🐟</Text>
-          <Text style={styles.logoText}>Cá Là Bạn</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.logo}
+            onPress={() => navigation.navigate('Home')}
+          >
+            <Text style={styles.logoIcon}>☕️</Text>
+            <Text style={styles.logoText}>Phê La Order</Text>
+          </TouchableOpacity>
 
         <View style={styles.headerRight}>
           <TouchableOpacity
@@ -102,54 +86,6 @@ const Header = () => {
                   <Text style={styles.menuItemText}>{item.label}</Text>
                 </TouchableOpacity>
               ))}
-
-              {isLoggedIn ? (
-                <View style={styles.authSection}>
-                  <TouchableOpacity
-                    style={styles.menuItem}
-                    onPress={() => {
-                      navigation.navigate('Profile')
-                      setMenuOpen(false)
-                    }}
-                  >
-                    <Text style={styles.menuItemText}>
-                      Welcome, {user?.fullName || user?.name || user?.email?.split('@')[0] || 'User'}
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={[styles.menuItem, styles.logoutButton]}
-                    onPress={() => {
-                      handleLogout()
-                      setMenuOpen(false)
-                    }}
-                  >
-                    <Text style={styles.logoutText}>Đăng Xuất</Text>
-                  </TouchableOpacity>
-                </View>
-              ) : (
-                <View style={styles.authSection}>
-                  <TouchableOpacity
-                    style={styles.loginButton}
-                    onPress={() => {
-                      navigation.navigate('Login')
-                      setMenuOpen(false)
-                    }}
-                    activeOpacity={0.7}
-                  >
-                    <Text style={styles.loginText}>Đăng Nhập</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={styles.signupButton}
-                    onPress={() => {
-                      navigation.navigate('SignUp')
-                      setMenuOpen(false)
-                    }}
-                    activeOpacity={0.7}
-                  >
-                    <Text style={styles.signupText}>Đăng Ký</Text>
-                  </TouchableOpacity>
-                </View>
-              )}
             </ScrollView>
           </View>
         </TouchableOpacity>
@@ -160,11 +96,11 @@ const Header = () => {
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: '#fff',
+    backgroundColor: '#0f172a',
     borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
-    paddingTop: 40,
-    paddingBottom: 10,
+    borderBottomColor: 'rgba(255, 255, 255, 0.08)',
+    paddingTop: 36,
+    paddingBottom: 12,
   },
   headerContainer: {
     flexDirection: 'row',
@@ -183,12 +119,12 @@ const styles = StyleSheet.create({
   logoText: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#1e3c72',
+    color: '#f8fafc',
   },
   headerRight: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
+    gap: 16,
   },
   cartButton: {
     position: 'relative',
@@ -196,6 +132,7 @@ const styles = StyleSheet.create({
   },
   cartIcon: {
     fontSize: 24,
+    color: '#fef9c3',
   },
   cartBadge: {
     position: 'absolute',
@@ -224,15 +161,15 @@ const styles = StyleSheet.create({
   },
   menuLine: {
     height: 2,
-    backgroundColor: '#2c3e50',
+    backgroundColor: '#fef9c3',
     borderRadius: 1,
   },
   modalOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(2, 6, 23, 0.8)',
   },
   menuContainer: {
-    backgroundColor: '#fff',
+    backgroundColor: '#020617',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     marginTop: 'auto',
@@ -244,58 +181,11 @@ const styles = StyleSheet.create({
   menuItem: {
     paddingVertical: 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
+    borderBottomColor: 'rgba(255, 255, 255, 0.1)',
   },
   menuItemText: {
     fontSize: 16,
-    color: '#2c3e50',
-  },
-  authSection: {
-    marginTop: 24,
-    paddingTop: 16,
-    borderTopWidth: 1,
-    borderTopColor: '#f0f0f0',
-  },
-  loginButton: {
-    backgroundColor: 'transparent',
-    borderWidth: 2,
-    borderColor: '#1e3c72',
-    borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 14,
-    marginBottom: 12,
-  },
-  loginText: {
-    color: '#1e3c72',
-    fontWeight: '700',
-    fontSize: 16,
-  },
-  signupButton: {
-    backgroundColor: '#1e3c72',
-    borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 14,
-    shadowColor: '#1e3c72',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    elevation: 4,
-  },
-  signupText: {
-    color: '#fff',
-    fontWeight: '700',
-  },
-  logoutButton: {
-    backgroundColor: '#e74c3c',
-    borderRadius: 8,
-    alignItems: 'center',
-    marginTop: 12,
-  },
-  logoutText: {
-    color: '#fff',
-    fontWeight: 'bold',
+    color: '#f8fafc',
   },
 })
 

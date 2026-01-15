@@ -18,7 +18,8 @@ const Layout = ({ children, showBack = false }) => {
   // Get page name for display
   const getPageName = (routeName) => {
     const names = {
-      Products: 'Sản Phẩm',
+      Menu: 'Thực Đơn theo category',
+      Product: 'Tổng sản phẩm',
       About: 'Giới Thiệu',
       Contact: 'Liên Hệ',
       Cart: 'Giỏ Hàng',
@@ -129,7 +130,7 @@ const Layout = ({ children, showBack = false }) => {
 const styles = StyleSheet.create({
   layout: {
     flex: 1,
-    backgroundColor: '#f8fafc',
+    backgroundColor: '#020617',
   },
   toolbar: {
     marginHorizontal: 16,
@@ -176,12 +177,16 @@ const styles = StyleSheet.create({
   },
   contentWrapper: {
     flex: 1,
+    alignItems: 'center',
   },
   content: {
     flex: 1,
+    width: '100%',
   },
   contentContainer: {
     padding: 16,
+    width: '100%',
+    maxWidth: 1100,
   },
   floatingBackButton: {
     position: 'absolute',

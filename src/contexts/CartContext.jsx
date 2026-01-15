@@ -1,4 +1,11 @@
-import React, { createContext, useContext, useEffect, useMemo, useReducer } from 'react'
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useReducer,
+  useRef,
+} from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const CartContext = createContext(null)
@@ -63,6 +70,7 @@ function cartReducer(state, action) {
 
 export const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState)
+  const authTokenRef = useRef(null)
 
   // Load cart from AsyncStorage on mount
   useEffect(() => {
@@ -103,15 +111,20 @@ export const CartProvider = ({ children }) => {
     const checkAuthStatus = async () => {
       try {
         const token = await AsyncStorage.getItem('token')
-        if (!token && state.items.length > 0) {
+        if (authTokenRef.current && !token && state.items.length > 0) {
           dispatch({ type: 'CLEAR' })
         }
+        authTokenRef.current = token
       } catch (error) {
         console.error('Error checking auth status:', error)
       }
     }
-    
+
     const interval = setInterval(checkAuthStatus, 1000)
+
+    // Run immediately so we capture the initial token state
+    checkAuthStatus()
+
     return () => clearInterval(interval)
   }, [state.items.length])
 

@@ -6,85 +6,104 @@ import {
   StyleSheet,
   ScrollView,
   Image,
-  Alert,
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import Layout from '../components/layout/Layout'
 import { PRODUCTS } from '../data/products'
 import { useCart } from '../contexts/CartContext'
 import ProductModal from '../components/common/ProductModal'
-import { useAuth } from '../contexts/AuthContext'
+
+const highlights = [
+  {
+    icon: '⚡',
+    title: 'Nhanh chóng',
+    desc: 'Order xong là nhận mã, quầy gọi là lấy liền.',
+  },
+  {
+    icon: '📱',
+    title: 'Quét QR là xong',
+    desc: 'Hướng dẫn rõ, không cần đăng nhập phức tạp.',
+  },
+  {
+    icon: '🛡️',
+    title: 'Tươi mới mỗi ly',
+    desc: 'Pha tay theo thứ tự để nhâm nhi ngay.',
+  },
+]
+
+const steps = [
+  { label: 'Quét QR', detail: 'Mở camera, quét QR Phê La Order.' },
+  { label: 'Chọn món', detail: 'Chọn trà, cà phê, soda theo tâm trạng.' },
+  {
+    label: 'Nhận mã',
+    detail: 'Nhận mã số, chờ nhân viên gọi tới quầy lấy.',
+  },
+]
 
 const Home = () => {
   const navigation = useNavigation()
-  const { isLoggedIn } = useAuth()
+  const { totalCount, addToCart } = useCart()
+  const featuredProducts = PRODUCTS.slice(0, 4)
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const { addToCart } = useCart()
-
-  const featuredProducts = PRODUCTS.slice(0, 4)
-
-  const handleAddToCart = async (product) => {
-    const token = await AsyncStorage.getItem('token')
-    if (!token) {
-      Alert.alert(
-        'Yêu cầu đăng nhập',
-        'Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.',
-        [
-          { text: 'Hủy', style: 'cancel' },
-          {
-            text: 'Đăng nhập',
-            onPress: () => navigation.navigate('Login'),
-          },
-        ]
-      )
-      return
-    }
-    addToCart(product)
-    // Show success feedback
-    Alert.alert('Thành công', 'Đã thêm sản phẩm vào giỏ hàng!', [{ text: 'OK' }])
-  }
 
   return (
     <Layout>
       <ScrollView style={styles.container}>
-        {/* Hero Section */}
         <View style={styles.hero}>
           <Image
-            source={require('../../public/hero-ocean.jpg')}
+            source={{
+              uri: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1200&q=60',
+            }}
             style={styles.heroImage}
             resizeMode="cover"
           />
           <View style={styles.heroOverlay} />
           <View style={styles.heroContent}>
-            <Text style={styles.heroTitle}>Cá Tươi Sống Chất Lượng Cao</Text>
+            <Text style={styles.heroEyebrow}>Order nước nhanh tại Phê La</Text>
+            <Text style={styles.heroTitle}>Quét QR, gọi món, nhận liền</Text>
             <Text style={styles.heroSubtitle}>
-              Chuyên cung cấp các loại cá tươi sống, đảm bảo chất lượng và an toàn vệ sinh thực phẩm
+              Giao diện web tươi sáng, giỏ hàng tối giản, đang tập trung vào trải nghiệm đặt nước
+              nhanh chóng tại quầy Phê La.
             </Text>
             <View style={styles.heroButtons}>
               <TouchableOpacity
                 style={styles.btnPrimary}
-                onPress={() => navigation.navigate('Products')}
+                onPress={() => navigation.navigate('Menu')}
                 activeOpacity={0.8}
               >
-                <Text style={styles.btnPrimaryText}>Xem Sản Phẩm</Text>
+                <Text style={styles.btnPrimaryText}>Xem thực đơn</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.btnSecondary}
-                onPress={() => navigation.navigate('About')}
+                onPress={() => navigation.navigate('Cart')}
                 activeOpacity={0.8}
               >
-                <Text style={styles.btnSecondaryText}>Tìm Hiểu Thêm</Text>
+                <Text style={styles.btnGiohangText}>Giỏ hàng ({totalCount})</Text>
               </TouchableOpacity>
             </View>
           </View>
         </View>
 
-        {/* Featured Products */}
-        <View style={styles.productsSection}>
-          <Text style={styles.sectionTitle}>Sản Phẩm Nổi Bật</Text>
-          <View style={styles.productsGrid}>
+        <View style={styles.highlightSection}>
+          {highlights.map((item, index) => (
+            <View
+              key={item.title}
+              style={[
+                styles.highlightCard,
+                index === highlights.length - 1 && styles.highlightCardLast,
+              ]}
+            >
+              <Text style={styles.highlightIcon}>{item.icon}</Text>
+              <Text style={styles.highlightTitle}>{item.title}</Text>
+              <Text style={styles.highlightDesc}>{item.desc}</Text>
+            </View>
+          ))}
+        </View>
+
+        <View style={styles.previewSection}>
+          <Text style={styles.previewTitle}>Thực đơn gợi ý</Text>
+          <View style={styles.productGrid}>
             {featuredProducts.map((product) => (
               <TouchableOpacity
                 key={product.id}
@@ -95,65 +114,51 @@ const Home = () => {
                 }}
               >
                 <Image source={{ uri: product.image }} style={styles.productImage} />
-                <View style={styles.productHeader}>
+                <View style={styles.productInfo}>
                   <Text style={styles.productCategory}>{product.category}</Text>
                   <Text style={styles.productName}>{product.name}</Text>
-                </View>
-                <Text style={styles.productDescription} numberOfLines={2}>
-                  {product.desc}
-                </Text>
-                <View style={styles.productFooter}>
                   <Text style={styles.productPrice}>{product.price}</Text>
                   <TouchableOpacity
-                    style={styles.btnAddCart}
-                    onPress={(e) => {
-                      e.stopPropagation()
-                      handleAddToCart(product)
+                    style={styles.addButton}
+                    activeOpacity={0.8}
+                    onPress={(event) => {
+                      event.stopPropagation()
+                      addToCart(product)
                     }}
                   >
-                    <Text style={styles.btnAddCartText}>Thêm Vào Giỏ</Text>
+                    <Text style={styles.addButtonText}>Thêm vào giỏ</Text>
                   </TouchableOpacity>
                 </View>
               </TouchableOpacity>
             ))}
           </View>
-          <TouchableOpacity
-            style={styles.viewAllButton}
-            onPress={() => navigation.navigate('Products')}
-          >
-            <Text style={styles.viewAllText}>Xem Tất Cả Sản Phẩm</Text>
-          </TouchableOpacity>
         </View>
 
-        {/* CTA Section */}
-        <View style={styles.ctaSection}>
-          {isLoggedIn ? (
-            <>
-              <Text style={styles.ctaTitle}>Sẵn Sàng Mua Hàng Ngay?</Text>
-              <Text style={styles.ctaSubtitle}>
-                Khám phá các sản phẩm cá tươi sống chất lượng cao
-              </Text>
-              <TouchableOpacity
-                style={styles.btnLarge}
-                onPress={() => navigation.navigate('Products')}
-              >
-                <Text style={styles.btnLargeText}>Mua Hàng Ngay</Text>
-              </TouchableOpacity>
-            </>
-          ) : (
-            <>
-              <Text style={styles.ctaTitle}>Sẵn Sàng Đặt Hàng Ngay?</Text>
-              <Text style={styles.ctaSubtitle}>
-                Đăng ký tài khoản để nhận nhiều ưu đãi đặc biệt
-              </Text>
-              <TouchableOpacity
-                style={styles.btnLarge}
-                onPress={() => navigation.navigate('SignUp')}
-              >
-                <Text style={styles.btnLargeText}>Đăng Ký Ngay</Text>
-              </TouchableOpacity>
-            </>
-          )}
+        <View style={styles.stepsSection}>
+          <Text style={styles.stepsTitle}>Bước order trong 30 giây</Text>
+          <View style={styles.stepsRow}>
+            {steps.map((step, index) => (
+            <View
+              key={step.label}
+              style={[styles.stepCard, index === steps.length - 1 && styles.stepCardLast]}
+            >
+                <Text style={styles.stepNumber}>{index + 1}</Text>
+                <Text style={styles.stepLabel}>{step.label}</Text>
+                <Text style={styles.stepDetail}>{step.detail}</Text>
+              </View>
+            ))}
+          </View>
+        </View>
+
+        <View style={styles.qrBanner}>
+          <Text style={styles.qrTitle}>Chuẩn bị quét QR đặt nước</Text>
+          <Text style={styles.qrSubtitle}>
+            Link web này được thiết kế nhỏ gọn, hiển thị rõ hướng dẫn gọi món. Sau khi deploy, bạn
+            có thể tạo QR từ URL để khách hàng quét ngay tại quầy.
+          </Text>
+          <TouchableOpacity style={styles.btnSecondaryWide}>
+            <Text style={styles.btnSecondaryText}>Tạo mã QR nhanh</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
 
@@ -174,8 +179,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   hero: {
-    height: 400,
-    borderRadius: 28,
+    height: 420,
+    borderRadius: 32,
     overflow: 'hidden',
     marginBottom: 24,
     position: 'relative',
@@ -187,202 +192,249 @@ const styles = StyleSheet.create({
   },
   heroOverlay: {
     position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(30, 60, 114, 0.7)',
+    inset: 0,
+    backgroundColor: 'rgba(3, 7, 18, 0.65)',
+    opacity: 0.9,
   },
   heroContent: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    padding: 24,
+    padding: 32,
     position: 'relative',
     zIndex: 2,
+  },
+  heroEyebrow: {
+    color: '#fef9c3',
+    fontSize: 14,
+    letterSpacing: 1.5,
+    textTransform: 'uppercase',
+    marginBottom: 12,
+    fontWeight: '600',
   },
   heroTitle: {
     fontSize: 32,
     fontWeight: '800',
     color: '#fff',
-    textAlign: 'center',
     marginBottom: 16,
-    textShadowColor: 'rgba(0, 0, 0, 0.5)',
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 8,
   },
   heroSubtitle: {
+    color: '#e2e8f0',
     fontSize: 16,
-    color: '#fff',
-    textAlign: 'center',
-    marginBottom: 32,
     lineHeight: 24,
-    opacity: 0.95,
-    textShadowColor: 'rgba(0, 0, 0, 0.4)',
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 4,
+    maxWidth: 520,
+    marginBottom: 28,
   },
   heroButtons: {
     flexDirection: 'row',
-    gap: 12,
     flexWrap: 'wrap',
-    justifyContent: 'center',
   },
   btnPrimary: {
-    backgroundColor: '#fff',
-    paddingHorizontal: 28,
+    backgroundColor: '#fef9c3',
+    paddingHorizontal: 24,
     paddingVertical: 14,
     borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    elevation: 8,
+    marginRight: 12,
   },
   btnPrimaryText: {
-    color: '#1e3c72',
     fontWeight: '700',
+    color: '#0f172a',
     fontSize: 16,
   },
   btnSecondary: {
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    paddingHorizontal: 28,
+    borderWidth: 1,
+    borderColor: '#fef9c3',
+    paddingHorizontal: 24,
     paddingVertical: 14,
     borderRadius: 12,
-    borderWidth: 2,
-    borderColor: 'rgba(255, 255, 255, 0.5)',
   },
-  btnSecondaryText: {
-    color: '#fff',
-    fontWeight: '700',
+  btnGiohangText: {
+    color: '#ffffff',
+    fontWeight: '600',
     fontSize: 16,
   },
-  productsSection: {
+  btnSecondaryText: {
+    color: '##fef9c3',
+    fontWeight: '600',
+    fontSize: 16,
+  },
+  highlightSection: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 28,
+  },
+  highlightCard: {
+    flex: 1,
+    backgroundColor: '#0f172a',
+    borderRadius: 18,
     padding: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(254, 249, 195, 0.3)',
+    minHeight: 150,
+    marginRight: 12,
   },
-  sectionTitle: {
-    fontSize: 28,
-    fontWeight: '800',
+  highlightCardLast: {
+    marginRight: 0,
+  },
+  highlightIcon: {
+    fontSize: 24,
+    marginBottom: 12,
+  },
+  highlightTitle: {
+    color: '#fef9c3',
+    fontSize: 18,
+    fontWeight: '700',
+    marginBottom: 6,
+  },
+  highlightDesc: {
+    color: '#cbd5f5',
+    fontSize: 14,
+    lineHeight: 20,
+  },
+  previewSection: {
+    backgroundColor: '#fff',
+    borderRadius: 28,
+    padding: 24,
+    marginBottom: 28,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+  },
+  previewTitle: {
+    fontSize: 22,
+    fontWeight: '700',
+    color: '#0f172a',
     marginBottom: 24,
-    textAlign: 'center',
-    color: '#1e3c72',
   },
-  productsGrid: {
-    gap: 16,
+  productGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   productCard: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    flex: 1,
+    minWidth: 150,
+    backgroundColor: '#f8fafc',
+    borderRadius: 20,
+    padding: 12,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    marginRight: 12,
+    marginBottom: 16,
   },
   productImage: {
     width: '100%',
-    height: 200,
-    borderRadius: 8,
+    height: 120,
+    borderRadius: 16,
     marginBottom: 12,
-    resizeMode: 'contain',
-    backgroundColor: 'rgba(102, 126, 234, 0.1)',
   },
-  productHeader: {
-    marginBottom: 8,
+  productInfo: {
+    paddingBottom: 6,
+    flex: 1,
+    justifyContent: 'space-between',
   },
   productCategory: {
+    color: '#64748b',
     fontSize: 12,
-    color: '#3498db',
-    fontWeight: '600',
-    marginBottom: 4,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
   },
   productName: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#2c3e50',
-    marginBottom: 8,
-  },
-  productDescription: {
-    fontSize: 14,
-    color: '#7f8c8d',
-    marginBottom: 12,
-  },
-  productFooter: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#0f172a',
   },
   productPrice: {
-    fontSize: 16,
-    fontWeight: '800',
-    color: '#667eea',
-  },
-  btnAddCart: {
-    backgroundColor: '#667eea',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 10,
-    shadowColor: '#667eea',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    elevation: 4,
-  },
-  btnAddCartText: {
-    color: '#fff',
-    fontSize: 14,
+    color: '#ef4444',
     fontWeight: '700',
   },
-  viewAllButton: {
-    marginTop: 20,
-    alignItems: 'center',
-  },
-  viewAllText: {
-    color: '#3498db',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  ctaSection: {
-    backgroundColor: '#1e3c72',
-    padding: 40,
-    alignItems: 'center',
-    marginTop: 20,
-    borderRadius: 28,
-    overflow: 'hidden',
-  },
-  ctaTitle: {
-    fontSize: 28,
-    fontWeight: '800',
-    color: '#fff',
-    marginBottom: 12,
-    textAlign: 'center',
-    textShadowColor: 'rgba(0, 0, 0, 0.2)',
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 4,
-  },
-  ctaSubtitle: {
-    fontSize: 16,
-    color: '#fff',
-    marginBottom: 32,
-    textAlign: 'center',
-    opacity: 0.95,
-  },
-  btnLarge: {
-    backgroundColor: '#fff',
-    paddingHorizontal: 40,
-    paddingVertical: 18,
+  addButton: {
+    marginTop: 12,
+    backgroundColor: '#0f172a',
+    paddingVertical: 10,
     borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#fef9c3',
+    shadowColor: '#0f172a',
+    shadowOpacity: 0.25,
     shadowRadius: 8,
-    elevation: 8,
+    elevation: 3,
+    alignSelf: 'stretch',
   },
-  btnLargeText: {
-    color: '#1e3c72',
-    fontSize: 18,
+  addButtonText: {
+    color: '#fef9c3',
     fontWeight: '700',
+  },
+  stepsSection: {
+    backgroundColor: '#0f172a',
+    borderRadius: 28,
+    padding: 24,
+    borderWidth: 1,
+    borderColor: 'rgba(254, 249, 195, 0.4)',
+    marginBottom: 24,
+  },
+  stepsTitle: {
+    color: '#fef9c3',
+    fontSize: 22,
+    fontWeight: '700',
+    marginBottom: 16,
+  },
+  stepsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  stepCard: {
+    flex: 1,
+    padding: 16,
+    borderRadius: 16,
+    backgroundColor: '#111827',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.08)',
+    marginRight: 12,
+  },
+  stepCardLast: {
+    marginRight: 0,
+  },
+  stepNumber: {
+    color: '#fef9c3',
+    fontSize: 20,
+    fontWeight: '700',
+  },
+  stepLabel: {
+    color: '#e2e8f0',
+    fontSize: 16,
+    fontWeight: '700',
+    marginTop: 6,
+  },
+  stepDetail: {
+    color: '#cbd5f5',
+    fontSize: 14,
+    marginTop: 6,
+  },
+  qrBanner: {
+    backgroundColor: '#fff',
+    borderRadius: 20,
+    padding: 24,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    marginBottom: 40,
+  },
+  qrTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    marginBottom: 8,
+    color: 'black',
+  },
+  qrSubtitle: {
+    color: 'black',
+    fontSize: 14,
+    lineHeight: 20,
+    marginBottom: 16,
+  },
+  btnSecondaryWide: {
+    borderWidth: 1,
+    borderColor: '#0f172a',
+    borderRadius: 12,
+    paddingVertical: 12,
+    alignItems: 'center',
   },
 })
 

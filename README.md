@@ -1,6 +1,6 @@
 # Fish App - React Native
 
-Ứng dụng React Native tương tự như phiên bản web `fishAppAuth`, được thiết kế cho mobile với cấu trúc chuẩn và đầy đủ tính năng.
+
 
 ## Cấu trúc dự án
 
@@ -75,10 +75,8 @@ npm run web
 
 ### API Base URL
 
-API base URL được cấu hình trong `src/services/api.js`:
-- Mặc định: `https://api.metrohcmc.xyz`
 
-### Google Sign-In
+
 
 Để sử dụng Google Sign-In, bạn cần cấu hình trong `app.json` và thêm Google Client ID.
 
@@ -115,3 +113,14 @@ API base URL được cấu hình trong `src/services/api.js`:
 - [ ] Offline mode
 - [ ] Image caching
 
+## Tích hợp thanh toán MoMo sandbox
+
+1. Chạy backend MoMo tại `momoPayment/payment/nodejs/backend` (hoặc deploy lên Vercel) để expose `POST /api/momo/create-payment`.
+2. Trong Expo web (`pheLaOrderWeb`), thêm biến môi trường khi chạy/test:
+   ```
+   EXPO_PUBLIC_PAYMENT_API=http://localhost:3000
+   EXPO_PUBLIC_MOMO_RETURN_URL=https://demo.your-frontend/momo-return
+   EXPO_PUBLIC_MOMO_IPN_URL=https://demo.your-frontend/momo-ipn
+   ```
+3. Ở trang `Cart`, chọn `MoMo (sandbox)` sẽ gọi API, lấy `payUrl` từ MoMo sandbox và chuyển hướng người dùng tới cổng thanh toán.  
+4. Kết thúc thanh toán, MoMo sẽ gửi IPN tới URL bạn khai báo, backend sẽ log payload ra console để test.  

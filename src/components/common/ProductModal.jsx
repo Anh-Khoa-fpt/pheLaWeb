@@ -9,39 +9,16 @@ import {
   ScrollView,
   Alert,
 } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useCart } from '../../contexts/CartContext'
-import { useAuth } from '../../contexts/AuthContext'
 
 const ProductModal = ({ product, isOpen, onClose }) => {
-  const navigation = useNavigation()
   const { addToCart } = useCart()
-  const { isLoggedIn } = useAuth()
 
   if (!isOpen || !product) return null
 
-  const handleAddToCart = async () => {
-    const token = await AsyncStorage.getItem('token')
-    if (!token) {
-      Alert.alert(
-        'Yêu cầu đăng nhập',
-        'Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.',
-        [
-          { text: 'Hủy', style: 'cancel', onPress: onClose },
-          {
-            text: 'Đăng nhập',
-            onPress: () => {
-              onClose()
-              navigation.navigate('Login')
-            },
-          },
-        ]
-      )
-      return
-    }
+  const handleAddToCart = () => {
     addToCart(product)
-    Alert.alert('Thành công', 'Đã thêm sản phẩm vào giỏ hàng!', [
+    Alert.alert('Đã thêm vào giỏ hàng', `${product.name} đang chờ bạn đặt.`, [
       { text: 'OK', onPress: onClose },
     ])
   }
@@ -203,11 +180,11 @@ const styles = StyleSheet.create({
     color: '#1e3c72',
   },
   addButton: {
-    backgroundColor: '#667eea',
+    backgroundColor: '#0f172a',
     borderRadius: 12,
     padding: 16,
     alignItems: 'center',
-    shadowColor: '#667eea',
+    shadowColor: '#0f172a',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 8,
