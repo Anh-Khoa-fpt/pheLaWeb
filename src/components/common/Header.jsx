@@ -12,7 +12,6 @@ import { useCart } from '../../contexts/CartContext'
 
 const navItems = [
   { label: 'Trang Chủ', route: 'Home' },
-  { label: 'Menu', route: 'Menu' },
   { label: 'Tất cả sản phẩm', route: 'Product' },
   { label: 'Giới Thiệu', route: 'About' },
   { label: 'Liên Hệ', route: 'Contact' },

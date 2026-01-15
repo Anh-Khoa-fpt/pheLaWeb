@@ -4,8 +4,8 @@ import Layout from '../components/layout/Layout'
 
 const Contact = () => {
   const contacts = [
-    { label: 'Địa chỉ', value: '123 Lê Văn Sỹ, Quận 3, TP.HCM' },
-    { label: 'Điện thoại', value: '0909 123 456' },
+    { label: 'Địa chỉ', value: 'Số 125 Hồ Tùng Mậu, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh' },
+    { label: 'Điện thoại', value: '1900 3013' },
     { label: 'Email', value: 'order@phela.com' },
     { label: 'Giờ mở cửa', value: '07:30 - 22:00 (Hằng ngày)' },
   ]
@@ -30,13 +30,7 @@ const Contact = () => {
           ))}
         </View>
 
-        <View style={styles.note}>
-          <Text style={styles.noteTitle}>Hệ thống QR Order</Text>
-          <Text style={styles.noteText}>
-            Sau khi deploy lên Vercel hoặc bất kỳ hosting nào, bạn chỉ cần dùng URL của web để sinh mã
-            QR. Khách quét trên điện thoại, chọn món, nhận mã và đợi gọi tại quầy.
-          </Text>
-        </View>
+        
       </ScrollView>
     </Layout>
   )

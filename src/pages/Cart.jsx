@@ -77,14 +77,6 @@ const Cart = () => {
     setIsPaymentModalVisible(true)
   }
 
-  const handleConfirmCash = async () => {
-    await clearCart()
-    setOrderMessage(
-      `Bạn đã đặt hàng thành công với số mã là ${orderCode}. Khi nhân viên gọi tên, hãy tới quầy thanh toán và lấy món nhé!!.`
-    )
-    setIsPaymentModalVisible(false)
-  }
-
   const handleSelectMomo = async () => {
     if (items.length === 0) {
       Alert.alert('Giỏ hàng trống', 'Bạn chưa chọn sản phẩm nào để thanh toán.')
@@ -104,6 +96,7 @@ const Cart = () => {
 
     const response = await createMoMoPayment(payload)
     const payUrl = response?.data?.payUrl
+    const qrCodeUrl = response?.data?.qrCodeUrl
     setLastPayUrl(payUrl)
 
     console.log('MoMo response payload', {
@@ -116,14 +109,12 @@ const Cart = () => {
       throw new Error('Không nhận được payUrl từ MoMo.')
     }
 
-    const sandboxQrEnabled = process.env.EXPO_PUBLIC_MOMO_ENABLE_QR === 'true'
-
     setOrderMessage(
       `Đơn ${orderCode} đang được khởi tạo. Chuyển qua cổng thanh toán MoMo...`
     )
 
-    if (sandboxQrEnabled) {
-      await renderQr(payUrl)
+    if (sandboxQrEnabled && qrCodeUrl) {
+      await renderQr(qrCodeUrl)
       return
     }
 
@@ -149,22 +140,22 @@ const Cart = () => {
         <View style={styles.hero}>
           <Text style={styles.heroTitle}>Giỏ hàng order nước</Text>
           <Text style={styles.heroDesc}>
-            Bạn đang gom những ly nước thơm ngon để chuẩn bị đi lấy tại quầy Phê La. Nhấn đặt để lấy
-            mã và đợi khi quầy gọi tên.
+            Bạn đang gom những ly nước thơm ngon để chuẩn bị thưởng thức tại bàn. Nhấn đặt để thanh toán
+            online và đợi nhân viên đem nước tới bàn.
           </Text>
           {orderMessage ? (
             <View style={styles.orderMessage}>
               <Text style={styles.orderMessageText}>{orderMessage}</Text>
             </View>
           ) : null}
-          {isProcessingPayment ? (
-            <View style={styles.processingBanner}>
-              <ActivityIndicator size="small" color="#fff" />
-              <Text style={styles.processingBannerText}>
-                Đang chuyển tới cổng MoMo...
-              </Text>
-            </View>
-          ) : null}
+        {isProcessingPayment ? (
+          <View style={styles.processingBanner}>
+            <ActivityIndicator size="small" color="#fff" />
+            <Text style={styles.processingBannerText}>
+              Đang chuyển tới cổng MoMo...
+            </Text>
+          </View>
+        ) : null}
         </View>
 
         {items.length === 0 ? (
@@ -280,6 +271,21 @@ const Cart = () => {
                 <Text style={styles.checkoutButtonText}>Đặt món ngay</Text>
               </TouchableOpacity>
             </View>
+            {qrDataUrl ? (
+              <View style={styles.qrBannerInline}>
+                <Text style={styles.qrTitleInline}>Quét mã MoMo tại bàn</Text>
+                <Text style={styles.qrSubtitleInline}>
+                  Mã QR mới nhất được tạo để thanh toán. Quét ngay bằng app MoMo.
+                </Text>
+                <Image source={{ uri: qrDataUrl }} style={styles.qrImageInline} />
+                <TouchableOpacity
+                  style={styles.qrButtonInline}
+                  onPress={handleOpenLastPayUrl}
+                >
+                  <Text style={styles.qrButtonText}>Mở MoMo</Text>
+                </TouchableOpacity>
+              </View>
+            ) : null}
           </>
         )}
 
@@ -291,20 +297,14 @@ const Cart = () => {
         >
           <View style={styles.modalOverlay}>
             <View style={styles.modalContent}>
-              <Text style={styles.modalTitle}>Chọn phương thức thanh toán</Text>
+              <Text style={styles.modalTitle}>Thanh toán MoMo</Text>
               <Text style={styles.modalNote}>
-                Nếu đơn hàng có mã giảm giá hoặc khuyến mãi thì chỉ thanh toán tiền mặt mới được nhé.
+                Chỉ hỗ trợ MoMo bằng QR (sandbox). Vui lòng quét mã hoặc mở MoMo để hoàn thành.
               </Text>
-              <TouchableOpacity
-                style={[styles.modalButton, styles.modalButtonDark]}
-                onPress={handleConfirmCash}
-              >
-                <Text style={styles.modalButtonText}>Tiền mặt</Text>
-              </TouchableOpacity>
               <TouchableOpacity
                 style={[
                   styles.modalButton,
-                  styles.modalButtonBorder,
+                  styles.modalButtonPink,
                   isProcessingPayment && styles.modalButtonDisabled,
                 ]}
                 onPress={handleSelectMomo}
@@ -313,11 +313,11 @@ const Cart = () => {
                 <Text
                   style={[
                     styles.modalButtonText,
-                    styles.modalButtonBorderText,
+                    styles.modalButtonPinkText,
                     isProcessingPayment && styles.modalButtonBorderTextDisabled,
                   ]}
                 >
-                  MoMo 
+                  MoMo
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -607,6 +607,13 @@ const styles = StyleSheet.create({
     color: '#0f172a',
     fontWeight: '600',
   },
+  modalButtonPink: {
+    backgroundColor: '#ff4f8b',
+    borderWidth: 0,
+  },
+  modalButtonPinkText: {
+    color: '#fff',
+  },
   qrModalOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.55)',
@@ -648,6 +655,42 @@ const styles = StyleSheet.create({
   qrButtonText: {
     color: '#fef9c3',
     fontWeight: '700',
+  },
+  qrBannerInline: {
+    marginTop: 30,
+    backgroundColor: '#fff',
+    borderRadius: 20,
+    padding: 24,
+    borderWidth: 1,
+    borderColor: '#f3f4f6',
+    alignItems: 'center',
+    gap: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 3,
+  },
+  qrTitleInline: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#0f172a',
+  },
+  qrSubtitleInline: {
+    fontSize: 14,
+    color: '#475569',
+    textAlign: 'center',
+  },
+  qrImageInline: {
+    width: 200,
+    height: 200,
+    marginVertical: 8,
+  },
+  qrButtonInline: {
+    backgroundColor: '#ff4f8b',
+    borderRadius: 12,
+    paddingVertical: 10,
+    paddingHorizontal: 32,
   },
 })
 

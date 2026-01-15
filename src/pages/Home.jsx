@@ -17,7 +17,7 @@ const highlights = [
   {
     icon: '⚡',
     title: 'Nhanh chóng',
-    desc: 'Order xong là nhận mã, quầy gọi là lấy liền.',
+    desc: 'Order xong là thanh toán, nhân viên ship nước tới liền.',
   },
   {
     icon: '📱',
@@ -35,8 +35,8 @@ const steps = [
   { label: 'Quét QR', detail: 'Mở camera, quét QR Phê La Order.' },
   { label: 'Chọn món', detail: 'Chọn trà, cà phê, soda theo tâm trạng.' },
   {
-    label: 'Nhận mã',
-    detail: 'Nhận mã số, chờ nhân viên gọi tới quầy lấy.',
+    label: 'Thanh Toán',
+    detail: 'Thanh toán online, chờ nhân viên đem nước tới bàn.',
   },
 ]
 
@@ -150,16 +150,7 @@ const Home = () => {
           </View>
         </View>
 
-        <View style={styles.qrBanner}>
-          <Text style={styles.qrTitle}>Chuẩn bị quét QR đặt nước</Text>
-          <Text style={styles.qrSubtitle}>
-            Link web này được thiết kế nhỏ gọn, hiển thị rõ hướng dẫn gọi món. Sau khi deploy, bạn
-            có thể tạo QR từ URL để khách hàng quét ngay tại quầy.
-          </Text>
-          <TouchableOpacity style={styles.btnSecondaryWide}>
-            <Text style={styles.btnSecondaryText}>Tạo mã QR nhanh</Text>
-          </TouchableOpacity>
-        </View>
+        
       </ScrollView>
 
       <ProductModal
