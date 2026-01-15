@@ -129,7 +129,7 @@ const Cart = () => {
         {items.length === 0 ? (
           <View style={styles.empty}>
             <Text style={styles.emptyText}>
-              Giỏ hàng hiện đang trống. Hãy thêm một vài loại cá tươi nhé!
+              Giỏ hàng hiện đang trống. Hãy thêm một vài loại nước nhé!
             </Text>
           </View>
         ) : (
