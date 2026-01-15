@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState, useEffect } from 'react'
 import {
   View,
   Text,
@@ -16,6 +16,7 @@ import Layout from '../components/layout/Layout'
 import { useCart } from '../contexts/CartContext'
 import { createMoMoPayment } from '../services/paymentService'
 import QRCode from 'qrcode'
+import { useNavigation } from '@react-navigation/native'
 
 const MOMO_RETURN_URL =
   process.env.EXPO_PUBLIC_MOMO_RETURN_URL || 'https://phela.vercel.app/momo-return'
@@ -26,6 +27,7 @@ const formatCurrency = (value) =>
   value.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })
 
 const Cart = () => {
+  const navigation = useNavigation()
   const [orderMessage, setOrderMessage] = useState('')
   const {
     items,
@@ -47,6 +49,16 @@ const Cart = () => {
   const [isQrModalVisible, setIsQrModalVisible] = useState(false)
   const [lastPayUrl, setLastPayUrl] = useState('')
   const sandboxQrEnabled = process.env.EXPO_PUBLIC_MOMO_ENABLE_QR === 'true'
+  const [isBankModalVisible, setIsBankModalVisible] = useState(false)
+  const [bankTimerId, setBankTimerId] = useState(null)
+
+  useEffect(() => {
+    return () => {
+      if (bankTimerId) {
+        clearTimeout(bankTimerId)
+      }
+    }
+  }, [bankTimerId])
 
   const handleOpenLastPayUrl = async () => {
     if (!lastPayUrl) return
@@ -55,6 +67,33 @@ const Cart = () => {
       return
     }
     await Linking.openURL(lastPayUrl)
+  }
+
+  const handleCloseBankModal = (cancelTimer = true) => {
+    if (cancelTimer && bankTimerId) {
+      clearTimeout(bankTimerId)
+      setBankTimerId(null)
+    }
+    setIsBankModalVisible(false)
+  }
+
+  const finalizeBankPayment = () => {
+    clearCart()
+    navigation.navigate('Home', {
+      bankSuccess: true,
+      bankMessage:
+        'Thanh toán bằng ngân hàng đã hoàn tất. Nhân viên sẽ đem nước tới bàn cho bạn.',
+    })
+  }
+
+  const handleSelectBank = async () => {
+    setIsPaymentModalVisible(false)
+    setIsBankModalVisible(true)
+    const timer = setTimeout(() => {
+      handleCloseBankModal(false)
+      finalizeBankPayment()
+    }, 30000)
+    setBankTimerId(timer)
   }
 
   const renderQr = async (url) => {
@@ -297,9 +336,9 @@ const Cart = () => {
         >
           <View style={styles.modalOverlay}>
             <View style={styles.modalContent}>
-              <Text style={styles.modalTitle}>Thanh toán MoMo</Text>
+              <Text style={styles.modalTitle}>Chọn phương thức thanh toán</Text>
               <Text style={styles.modalNote}>
-                Chỉ hỗ trợ MoMo bằng QR (sandbox). Vui lòng quét mã hoặc mở MoMo để hoàn thành.
+                Hỗ trợ MoMo QR (sandbox) và mô phỏng ngân hàng. Chọn MoMo để quét QR hoặc Ngân hàng để xem mã và hoàn tất.
               </Text>
               <TouchableOpacity
                 style={[
@@ -318,6 +357,25 @@ const Cart = () => {
                   ]}
                 >
                   MoMo
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.modalButton,
+                  styles.modalButtonBorder,
+                  isProcessingPayment && styles.modalButtonDisabled,
+                ]}
+                onPress={handleSelectBank}
+                disabled={isProcessingPayment}
+              >
+                <Text
+                  style={[
+                    styles.modalButtonText,
+                    styles.modalButtonBorderText,
+                    isProcessingPayment && styles.modalButtonBorderTextDisabled,
+                  ]}
+                >
+                  Ngân hàng
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -353,6 +411,26 @@ const Cart = () => {
                 style={styles.modalClose}
                 onPress={() => setIsQrModalVisible(false)}
               >
+                <Text style={styles.modalCloseText}>Đóng</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+        <Modal
+          visible={isBankModalVisible}
+          transparent
+          animationType="fade"
+          onRequestClose={handleCloseBankModal}
+        >
+          <View style={styles.bankModalOverlay}>
+            <View style={styles.bankModalContent}>
+              <Text style={styles.modalTitle}>Thanh toán bằng ngân hàng</Text>
+              <Image
+                source={require('../../assets/images/acbTestPayment.jpg')}
+                style={styles.bankModalImage}
+                resizeMode="contain"
+              />
+              <TouchableOpacity style={styles.modalClose} onPress={handleCloseBankModal}>
                 <Text style={styles.modalCloseText}>Đóng</Text>
               </TouchableOpacity>
             </View>
@@ -691,6 +769,30 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     paddingVertical: 10,
     paddingHorizontal: 32,
+  },
+  bankModalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.7)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 16,
+  },
+  bankModalContent: {
+    backgroundColor: '#fff',
+    borderRadius: 20,
+    padding: 20,
+    alignItems: 'center',
+    width: '100%',
+    maxWidth: 360,
+    gap: 12,
+  },
+  bankModalImage: {
+    width: '100%',
+    height: 240,
+  },
+  bankModalText: {
+    fontSize: 14,
+    color: '#475569',
   },
 })
 

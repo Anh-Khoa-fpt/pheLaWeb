@@ -6,7 +6,6 @@ import { CartProvider } from './src/contexts/CartContext'
 
 // Pages
 import Home from './src/pages/Home'
-import Menu from './src/pages/Menu'
 import Product from './src/pages/Product'
 import Cart from './src/pages/Cart'
 import About from './src/pages/About'
@@ -26,7 +25,6 @@ export default function App() {
           }}
         >
           <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="Menu" component={Menu} />
           <Stack.Screen name="Product" component={Product} />
           <Stack.Screen name="About" component={About} />
           <Stack.Screen name="Contact" component={Contact} />

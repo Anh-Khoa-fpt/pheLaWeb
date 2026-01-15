@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   View,
   Text,
@@ -7,7 +7,7 @@ import {
   ScrollView,
   Image,
 } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import Layout from '../components/layout/Layout'
 import { PRODUCTS } from '../data/products'
 import { useCart } from '../contexts/CartContext'
@@ -42,10 +42,24 @@ const steps = [
 
 const Home = () => {
   const navigation = useNavigation()
+  const route = useRoute()
   const { totalCount, addToCart } = useCart()
   const featuredProducts = PRODUCTS.slice(0, 4)
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [bankSuccessMessage, setBankSuccessMessage] = useState('')
+
+  useEffect(() => {
+    if (route.params?.bankSuccess) {
+      const message =
+        route.params.bankMessage || 'Thanh toán bằng ngân hàng đã hoàn tất.'
+      setBankSuccessMessage(message)
+      navigation.setParams({ bankSuccess: false, bankMessage: undefined })
+      const timer = setTimeout(() => setBankSuccessMessage(''), 6000)
+      return () => clearTimeout(timer)
+    }
+    return undefined
+  }, [route.params?.bankSuccess, route.params?.bankMessage, navigation])
 
   return (
     <Layout>
@@ -69,7 +83,7 @@ const Home = () => {
             <View style={styles.heroButtons}>
               <TouchableOpacity
                 style={styles.btnPrimary}
-                onPress={() => navigation.navigate('Menu')}
+                onPress={() => navigation.navigate('Product')}
                 activeOpacity={0.8}
               >
                 <Text style={styles.btnPrimaryText}>Xem thực đơn</Text>
@@ -84,6 +98,15 @@ const Home = () => {
             </View>
           </View>
         </View>
+
+        {bankSuccessMessage ? (
+          <View style={styles.bankSuccessBanner}>
+            <Text style={styles.bankSuccessText}>{bankSuccessMessage}</Text>
+            <TouchableOpacity onPress={() => setBankSuccessMessage('')}>
+              <Text style={styles.bankSuccessDismiss}>Đóng</Text>
+            </TouchableOpacity>
+          </View>
+        ) : null}
 
         <View style={styles.highlightSection}>
           {highlights.map((item, index) => (
@@ -214,6 +237,27 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     maxWidth: 520,
     marginBottom: 28,
+  },
+  bankSuccessBanner: {
+    backgroundColor: '#ecfccb',
+    borderRadius: 16,
+    padding: 16,
+    marginBottom: 16,
+    borderWidth: 1,
+    borderColor: '#84cc16',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: 12,
+  },
+  bankSuccessText: {
+    color: '#14532d',
+    fontSize: 14,
+    flex: 1,
+  },
+  bankSuccessDismiss: {
+    color: '#0f172a',
+    fontWeight: '600',
   },
   heroButtons: {
     flexDirection: 'row',
