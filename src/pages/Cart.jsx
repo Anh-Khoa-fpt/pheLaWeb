@@ -78,6 +78,12 @@ const Cart = () => {
       const response = await createMoMoPayment(payload)
       const payUrl = response?.data?.payUrl
 
+      console.log('MoMo response payload', {
+        payUrl,
+        errorCode: response?.data?.errorCode,
+        responseData: response?.data,
+      })
+
       if (!payUrl) {
         throw new Error('Không nhận được payUrl từ MoMo.')
       }
