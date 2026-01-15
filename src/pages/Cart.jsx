@@ -10,10 +10,12 @@ import {
   Modal,
   ActivityIndicator,
   Linking,
+  Image,
 } from 'react-native'
 import Layout from '../components/layout/Layout'
 import { useCart } from '../contexts/CartContext'
 import { createMoMoPayment } from '../services/paymentService'
+import QRCode from 'qrcode'
 
 const MOMO_RETURN_URL =
   process.env.EXPO_PUBLIC_MOMO_RETURN_URL || 'https://phela.vercel.app/momo-return'
@@ -41,6 +43,31 @@ const Cart = () => {
 
   const [isPaymentModalVisible, setIsPaymentModalVisible] = useState(false)
   const [isProcessingPayment, setIsProcessingPayment] = useState(false)
+  const [qrDataUrl, setQrDataUrl] = useState('')
+  const [isQrModalVisible, setIsQrModalVisible] = useState(false)
+  const [lastPayUrl, setLastPayUrl] = useState('')
+  const sandboxQrEnabled = process.env.EXPO_PUBLIC_MOMO_ENABLE_QR === 'true'
+
+  const handleOpenLastPayUrl = async () => {
+    if (!lastPayUrl) return
+    if (Platform.OS === 'web' && typeof window !== 'undefined' && window.location) {
+      window.location.assign(lastPayUrl)
+      return
+    }
+    await Linking.openURL(lastPayUrl)
+  }
+
+  const renderQr = async (url) => {
+    try {
+      const dataUrl = await QRCode.toDataURL(url, { width: 320 })
+      setQrDataUrl(dataUrl)
+      setIsQrModalVisible(true)
+    } catch (qrError) {
+      console.error('QR generation failed', qrError)
+      Alert.alert('Không thể tạo QR', 'Đang mở MoMo trực tiếp.')
+      await handleOpenLastPayUrl()
+    }
+  }
 
   const handleOrderSubmit = () => {
     if (items.length === 0) {
@@ -68,35 +95,43 @@ const Cart = () => {
     setIsProcessingPayment(true)
 
     try {
-      const payload = {
-        amount: totalPrice,
-        orderInfo: `Đơn hàng ${orderCode} - ${items.length} món`,
-        redirectUrl: MOMO_RETURN_URL,
-        ipnUrl: MOMO_IPN_URL,
-      }
+    const payload = {
+      amount: totalPrice,
+      orderInfo: `Đơn hàng ${orderCode} - ${items.length} món`,
+      redirectUrl: MOMO_RETURN_URL,
+      ipnUrl: MOMO_IPN_URL,
+    }
 
-      const response = await createMoMoPayment(payload)
-      const payUrl = response?.data?.payUrl
+    const response = await createMoMoPayment(payload)
+    const payUrl = response?.data?.payUrl
+    setLastPayUrl(payUrl)
 
-      console.log('MoMo response payload', {
-        payUrl,
-        errorCode: response?.data?.errorCode,
-        responseData: response?.data,
-      })
+    console.log('MoMo response payload', {
+      payUrl,
+      errorCode: response?.data?.errorCode,
+      responseData: response?.data,
+    })
 
-      if (!payUrl) {
-        throw new Error('Không nhận được payUrl từ MoMo.')
-      }
+    if (!payUrl) {
+      throw new Error('Không nhận được payUrl từ MoMo.')
+    }
 
-      setOrderMessage(
-        `Đơn ${orderCode} đang được khởi tạo. Chuyển qua cổng thanh toán MoMo...`
-      )
+    const sandboxQrEnabled = process.env.EXPO_PUBLIC_MOMO_ENABLE_QR === 'true'
 
-      if (Platform.OS === 'web' && typeof window !== 'undefined' && window.location) {
-        window.location.assign(payUrl)
-      } else {
-        await Linking.openURL(payUrl)
-      }
+    setOrderMessage(
+      `Đơn ${orderCode} đang được khởi tạo. Chuyển qua cổng thanh toán MoMo...`
+    )
+
+    if (sandboxQrEnabled) {
+      await renderQr(payUrl)
+      return
+    }
+
+    if (Platform.OS === 'web' && typeof window !== 'undefined' && window.location) {
+      window.location.assign(payUrl)
+    } else {
+      await Linking.openURL(payUrl)
+    }
     } catch (error) {
       console.error('Lỗi khi gọi API MoMo:', error)
       Alert.alert(
@@ -290,6 +325,35 @@ const Cart = () => {
                 onPress={() => setIsPaymentModalVisible(false)}
               >
                 <Text style={styles.modalCloseText}>Huỷ</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+        <Modal
+          visible={isQrModalVisible}
+          transparent
+          animationType="slide"
+          onRequestClose={() => setIsQrModalVisible(false)}
+        >
+          <View style={styles.qrModalOverlay}>
+            <View style={styles.qrModalContent}>
+              <Text style={styles.modalTitle}>Quét mã MoMo</Text>
+              <Text style={styles.qrInstruction}>
+                Dùng app MoMo để quét mã QR hoặc bấm “Mở MoMo” để mở màn hình thanh toán trực tiếp.
+              </Text>
+              {qrDataUrl ? (
+                <Image source={{ uri: qrDataUrl }} style={styles.qrImage} />
+              ) : (
+                <ActivityIndicator size="large" color="#0f172a" />
+              )}
+              <TouchableOpacity style={styles.qrButton} onPress={handleOpenLastPayUrl}>
+                <Text style={styles.qrButtonText}>Mở MoMo</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.modalClose}
+                onPress={() => setIsQrModalVisible(false)}
+              >
+                <Text style={styles.modalCloseText}>Đóng</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -542,6 +606,48 @@ const styles = StyleSheet.create({
   modalCloseText: {
     color: '#0f172a',
     fontWeight: '600',
+  },
+  qrModalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.55)',
+    justifyContent: 'center',
+    padding: 24,
+  },
+  qrModalContent: {
+    backgroundColor: '#fff',
+    borderRadius: 24,
+    padding: 24,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#0f172a',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.3,
+    shadowRadius: 16,
+    elevation: 12,
+  },
+  qrInstruction: {
+    fontSize: 14,
+    color: '#475569',
+    textAlign: 'center',
+    marginBottom: 12,
+  },
+  qrImage: {
+    width: 260,
+    height: 260,
+    marginBottom: 16,
+  },
+  qrButton: {
+    width: '100%',
+    backgroundColor: '#0f172a',
+    paddingVertical: 12,
+    borderRadius: 12,
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  qrButtonText: {
+    color: '#fef9c3',
+    fontWeight: '700',
   },
 })
 
