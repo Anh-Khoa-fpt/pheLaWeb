@@ -203,7 +203,7 @@ const Cart = () => {
           <Text style={styles.heroTitle}>Giỏ hàng order nước</Text>
           <Text style={styles.heroDesc}>
             Bạn đang gom những ly nước thơm ngon để chuẩn bị thưởng thức tại bàn. Nhấn đặt để thanh toán
-            online và đợi nhân viên đem nước tới bàn.
+            online và chờ tới quầy nhận món nhé.
           </Text>
           {orderMessage ? (
             <View style={styles.orderMessage}>

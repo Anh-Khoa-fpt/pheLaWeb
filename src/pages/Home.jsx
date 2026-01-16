@@ -17,7 +17,7 @@ const highlights = [
   {
     icon: '⚡',
     title: 'Nhanh chóng',
-    desc: 'Order xong là thanh toán, nhân viên ship nước tới liền.',
+    desc: 'Order xong là thanh toán, chờ tới quầy nhận món nhé.',
   },
   {
     icon: '📱',
@@ -36,7 +36,7 @@ const steps = [
   { label: 'Chọn món', detail: 'Chọn trà, cà phê, soda theo tâm trạng.' },
   {
     label: 'Thanh Toán',
-    detail: 'Thanh toán online, chờ nhân viên đem nước tới bàn.',
+    detail: 'Thanh toán online, chờ tới quầy nhận món nhé.',
   },
 ]
 
