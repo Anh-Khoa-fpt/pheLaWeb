@@ -8,11 +8,14 @@ import {
   Image,
 } from 'react-native'
 import Layout from '../components/layout/Layout'
+import ProductModal from '../components/common/ProductModal'
 import { useCart } from '../contexts/CartContext'
 import { PRODUCTS } from '../data/products'
 
 const Product = () => {
   const { addToCart } = useCart()
+  const [selectedProduct, setSelectedProduct] = useState(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const categories = useMemo(
     () => ['all', ...new Set(PRODUCTS.map((product) => product.category))],
     []
@@ -23,6 +26,16 @@ const Product = () => {
     if (filter === 'all') return PRODUCTS
     return PRODUCTS.filter((product) => product.category === filter)
   }, [filter])
+
+  const handleOpenModal = (product) => {
+    setSelectedProduct(product)
+    setIsModalOpen(true)
+  }
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false)
+    setSelectedProduct(null)
+  }
 
   return (
     <Layout>
@@ -63,7 +76,12 @@ const Product = () => {
 
         <View style={styles.productsGrid}>
           {filteredProducts.map((product) => (
-            <View key={product.id} style={styles.productCard}>
+            <TouchableOpacity
+              key={product.id}
+              style={styles.productCard}
+              activeOpacity={0.8}
+              onPress={() => handleOpenModal(product)}
+            >
               <Image source={{ uri: product.image }} style={styles.productImage} />
               <View style={styles.productInfo}>
                 <Text style={styles.productCategory}>{product.category}</Text>
@@ -79,10 +97,16 @@ const Product = () => {
                   </TouchableOpacity>
                 </View>
               </View>
-            </View>
+            </TouchableOpacity>
           ))}
         </View>
       </ScrollView>
+
+      <ProductModal
+        product={selectedProduct}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </Layout>
   )
 }
@@ -145,15 +169,19 @@ const styles = StyleSheet.create({
     borderColor: '#e5e7eb',
     overflow: 'hidden',
     marginBottom: 16,
+    minHeight: 150,
+    alignItems: 'stretch',
   },
   productImage: {
     width: 120,
-    height: 120,
+    height: '100%',
+    minHeight: 120,
   },
   productInfo: {
     flex: 1,
     padding: 14,
     justifyContent: 'space-between',
+    paddingBottom: 12,
   },
   productCategory: {
     textTransform: 'uppercase',
@@ -178,6 +206,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginTop: 'auto',
   },
   productPrice: {
     fontSize: 16,
