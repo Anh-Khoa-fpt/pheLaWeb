@@ -337,7 +337,7 @@ const styles = StyleSheet.create({
     color: '#cbd5f5',
     fontSize: 14,
     lineHeight: 20,
-    textAlign: 'center',
+   
   },
   previewSection: {
     backgroundColor: '#ebf7ed',
