@@ -105,7 +105,7 @@ const Cart = () => {
     navigation.navigate('Home', {
       bankSuccess: true,
       bankMessage:
-        'Thanh toán bằng ngân hàng đã hoàn tất. Nhân viên sẽ đem nước tới bàn cho bạn.',
+        'Thanh toán bằng ngân hàng đã hoàn tất. Vui lòng đến quầy lấy món nhé.',
     })
   }
 
