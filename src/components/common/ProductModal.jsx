@@ -62,8 +62,7 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                   <Text style={styles.detailValue}>{product.price}</Text>
                 </View>
                 <View style={styles.detailItem}>
-                  <Text style={styles.detailLabel}>Miêu tả:</Text>
-                  <Text style={styles.detailValue}>{product.freshness}</Text>
+                 
                 </View>
               </View>
               <TouchableOpacity style={styles.addButton} onPress={handleAddToCart}>

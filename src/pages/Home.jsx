@@ -21,28 +21,28 @@ const highlights = [
   },
   {
     icon: '🫖',
-    title: 'Teabarr Signature',
+    title: 'Teabar Signature',
     desc: 'Các base trà cold brew, latte trà xanh và soda tự phối.',
   },
   {
     icon: '📍',
-    title: 'Matte Matcha Q1',
-    desc: 'Quán Matte Matcha & Teabarr tại Quận 1 phục vụ trực tiếp.',
+    title: 'Matte Matcha Q7',
+    desc: 'Quán Matte Matcha & Teabar tại Quận 7 phục vụ trực tiếp.',
   },
 ]
 
 const steps = [
   {
     label: 'Quét QR Matte',
-    detail: 'Mở camera, quét QR Matte Matcha & Teabarr.',
+    detail: 'Mở camera, quét QR Matte Matcha & Teabar.',
   },
   {
-    label: 'Chọn base trà',
-    detail: 'Tùy chỉnh matcha latte, teabarr cold brew hay soda trà.',
+    label: 'Chọn món của bạn',
+    detail: 'Tùy chọn món mà bạn muốn order.',
   },
   {
-    label: 'Nhận ly',
-    detail: 'Thanh toán online, ra quầy lấy món trong vòng 3 phút.',
+    label: 'Thanh toán',
+    detail: 'Thanh toán online, ra quầy lấy món nhé.',
   },
 ]
 
@@ -80,10 +80,10 @@ const Home = () => {
           />
           <View style={styles.heroOverlay} />
           <View style={styles.heroContent}>
-          <Text style={styles.heroEyebrow}>Matte Matcha & Teabarr · Quận 1</Text>
-          <Text style={styles.heroTitle}>Matcha tươi & Tea Bar chill</Text>
+          <Text style={styles.heroEyebrow}>Matte Matcha & Teabar · Quận 7</Text>
+          <Text style={styles.heroTitle}>Matcha tươi & Tea Bar</Text>
           <Text style={styles.heroSubtitle}>
-            Quét QR, chọn base matcha hoặc teabarr, thanh toán tức thì rồi nhận ly trong 5 phút.
+            Quét QR, chọn base matcha hoặc Teabar, thanh toán tức thì rồi nhận ly trong 5 phút.
           </Text>
             <View style={styles.heroButtons}>
           <TouchableOpacity
@@ -91,7 +91,7 @@ const Home = () => {
             onPress={() => navigation.navigate('Product')}
             activeOpacity={0.8}
           >
-            <Text style={styles.btnPrimaryText}>Khám phá trà & soda</Text>
+            <Text style={styles.btnPrimaryText}>Khám phá thêm</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.btnSecondary}

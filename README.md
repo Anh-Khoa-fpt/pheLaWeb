@@ -1,8 +1,8 @@
-# Matte Matcha & Teabarr Web
+# Matte Matcha & Teabar Web
 
-Phiên bản web này giới thiệu trải nghiệm order nước tại Matte Matcha & Teabarr Quận 1: chỉ cần mở link, quét QR từng ly matcha/teabarr, thêm vào giỏ và thanh toán thử nghiệm ngay trên trình duyệt.
+Phiên bản web này giới thiệu trải nghiệm order nước tại Matte Matcha & Teabar Quận 1: chỉ cần mở link, quét QR từng ly matcha/Teabar, thêm vào giỏ và thanh toán thử nghiệm ngay trên trình duyệt.
 
-- Xem nhanh thực đơn matcha latte, teabarr signature, soda trà và dessert.
+- Xem nhanh thực đơn matcha latte, Teabar signature, soda trà và dessert.
 - Thêm món, thay đổi số lượng, gạt qua gạt lại giữa các lựa chọn mà không cần reload.
 - Nhấn **Đặt hàng** để chọn cổng thanh toán phù hợp (MoMo sandbox hoặc mô phỏng ngân hàng).
 - MoMo QR tạo mã từ sandbox API, trình duyệt sẽ hiện QR hoặc mở app MoMo nếu bạn bấm “Mở MoMo”.
@@ -11,7 +11,7 @@ Phiên bản web này giới thiệu trải nghiệm order nước tại Matte M
 
 ## Hướng dẫn cho người mới
 
-1. **Mở link web** → trang Home hiện banner Matte Matcha & Teabarr cùng thông tin thương hiệu.
+1. **Mở link web** → trang Home hiện banner Matte Matcha & Teabar cùng thông tin thương hiệu.
 2. **Duyệt đồ uống** qua phần “Thực đơn” hoặc “Đồ uống gợi ý”, bấm “Thêm vào giỏ” để gom món.
 3. **Mở giỏ** bằng biểu tượng 🛒 trên header, kiểm tra số lượng, bấm “Đặt hàng”.
 4. **Chọn MoMo** để tạo QR sandbox, quét bằng app MoMo hoặc bấm “Mở MoMo” nếu trình duyệt hỗ trợ.

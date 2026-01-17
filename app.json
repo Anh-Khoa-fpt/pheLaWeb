@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "matteMatchaTeabarr",
-    "slug": "matte-matcha-teabarr",
+    "name": "matteMatchaTeabar",
+    "slug": "matte-matcha-Teabar",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/phela.png",
@@ -16,14 +16,14 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.matte.matcha.teabarr"
+      "bundleIdentifier": "com.matte.matcha.Teabar"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/phela.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.matte.matcha.teabarr"
+      "package": "com.matte.matcha.Teabar"
     },
     "web": {
       "favicon": "./assets/phela.png",

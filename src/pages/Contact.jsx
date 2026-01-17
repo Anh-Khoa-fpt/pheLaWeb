@@ -4,19 +4,19 @@ import Layout from '../components/layout/Layout'
 
 const Contact = () => {
   const contacts = [
-    { label: 'Địa chỉ', value: '112 Lê Thánh Tôn, Quận 1, TP. Hồ Chí Minh' },
-    { label: 'Điện thoại', value: '028 9999 8888' },
-    { label: 'Email', value: 'hello@matte-matcha.com' },
-    { label: 'Giờ mở cửa', value: '07:30 - 23:00 (Hằng ngày)' },
+    { label: 'Địa chỉ', value: '25-27 Mỹ Kim 2, Tân Phong, Quận 7, Thành phố Hồ Chí Minh' },
+    { label: 'Điện thoại', value: '0901 528 408' },
+    { label: 'Email', value: 'Contact@mattetea.com' },
+    { label: 'Giờ mở cửa', value: '08:00 - 21:45 (Hằng ngày)' },
   ]
 
   return (
     <Layout>
       <ScrollView style={styles.container}>
         <View style={styles.hero}>
-          <Text style={styles.title}>Liên hệ Matte Matcha & Teabarr</Text>
+          <Text style={styles.title}>Liên hệ Matte Matcha & Teabar</Text>
           <Text style={styles.subtitle}>
-            Hỗ trợ order nhóm, sự kiện pop-up và cập nhật menu matcha mới trong 30 phút.
+            Hỗ trợ order nhóm, sự kiện pop-up và mọi thắc mắc về Matte Matcha & Teabar.
           </Text>
         </View>
 

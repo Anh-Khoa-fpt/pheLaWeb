@@ -7,16 +7,16 @@ const About = () => {
     <Layout>
       <ScrollView style={styles.container}>
         <View style={styles.hero}>
-          <Text style={styles.title}>Matte Matcha & Teabarr</Text>
+          <Text style={styles.title}>Matte Matcha & Teabar</Text>
           <Text style={styles.subtitle}>
-            Từ matcha tươi Nhật Bản đến teabarr cold brew, mỗi ly đều được điều chỉnh theo khẩu vị bạn chọn.
+            Từ matcha tươi Nhật Bản đến Teabar cold brew, mỗi ly đều được điều chỉnh theo khẩu vị bạn chọn.
           </Text>
         </View>
 
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Tầm nhìn</Text>
           <Text style={styles.sectionContent}>
-            Lấy matcha và trà cao cấp làm trung tâm, kết hợp công nghệ để khách order nhanh hơn và tận hưởng không gian teabarr.
+            Lấy matcha và trà cao cấp làm trung tâm, kết hợp công nghệ để khách order nhanh hơn và tận hưởng không gian Teabar.
           </Text>
         </View>
 

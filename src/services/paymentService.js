@@ -11,7 +11,7 @@ const client = axios.create({
 export const createMoMoPayment = (payload) => {
   return client.post('/api/momo/create-payment', {
     amount: String(payload.amount ?? 0),
-    orderInfo: payload.orderInfo || 'Đơn Matte Matcha & Teabarr',
+    orderInfo: payload.orderInfo || 'Đơn Matte Matcha & Teabar',
     extraData: payload.extraData || '',
     redirectUrl: payload.redirectUrl,
     ipnUrl: payload.ipnUrl,

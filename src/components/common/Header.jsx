@@ -32,7 +32,7 @@ const Header = () => {
             onPress={() => navigation.navigate('Home')}
           >
             <Text style={styles.logoIcon}>🍵</Text>
-            <Text style={styles.logoText}>Matte Matcha & Teabarr</Text>
+            <Text style={styles.logoText}>Matte Matcha & Teabar</Text>
           </TouchableOpacity>
 
         <View style={styles.headerRight}>

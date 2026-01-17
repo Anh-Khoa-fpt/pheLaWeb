@@ -41,9 +41,9 @@ const Product = () => {
     <Layout>
       <ScrollView style={styles.container}>
         <View style={styles.hero}>
-          <Text style={styles.heroTitle}>Thực đơn Matte Matcha & Teabarr</Text>
+          <Text style={styles.heroTitle}>Thực đơn Matte Matcha & Teabar</Text>
           <Text style={styles.heroDesc}>
-            Mọi matcha, trân châu tea, soda và bánh ngọt được tuyển chọn kỹ càng tại Matte Matcha & Teabarr Quận 1.
+            Mọi matcha, trân châu tea, soda và bánh ngọt được tuyển chọn kỹ càng tại Matte Matcha & Teabar Quận 7.
           </Text>
         </View>
 

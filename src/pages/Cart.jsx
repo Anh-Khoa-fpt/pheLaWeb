@@ -200,9 +200,9 @@ const Cart = () => {
     <Layout>
       <ScrollView style={styles.container}>
         <View style={styles.hero}>
-          <Text style={styles.heroTitle}>Giỏ hàng Matte Matcha & Teabarr</Text>
+          <Text style={styles.heroTitle}>Giỏ hàng Matte Matcha & Teabar</Text>
           <Text style={styles.heroDesc}>
-            Tất cả đồ uống matcha, teabarr và soda bạn chuẩn bị thưởng thức đều nằm trong giỏ. Nhấn đặt để hoàn tất.
+            Tất cả đồ uống matcha, Teabar và soda bạn chuẩn bị thưởng thức đều nằm trong giỏ. Nhấn đặt để hoàn tất.
           </Text>
           {orderMessage ? (
             <View style={styles.orderMessage}>
