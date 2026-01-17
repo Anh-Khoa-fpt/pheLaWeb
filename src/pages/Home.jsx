@@ -330,11 +330,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '700',
     marginBottom: 6,
+    letterSpacing: 0.5,
+    textAlign: 'center',
   },
   highlightDesc: {
     color: '#cbd5f5',
     fontSize: 14,
     lineHeight: 20,
+    textAlign: 'center',
   },
   previewSection: {
     backgroundColor: '#ebf7ed',
