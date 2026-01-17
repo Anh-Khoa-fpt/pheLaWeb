@@ -21,13 +21,13 @@ const highlights = [
   },
   {
     icon: '🫖',
-    title: 'Teabar Signature',
-    desc: 'Các base trà cold brew, latte trà xanh và soda tự phối.',
+    title: 'Signature',
+    desc: 'Các base trà cold brew, latte trà xanh.',
   },
   {
     icon: '📍',
     title: 'Matte Matcha Q7',
-    desc: 'Quán Matte Matcha & Teabar tại Quận 7 phục vụ trực tiếp.',
+    desc: 'Quán Matte Matcha & Teabar phục vụ trực tiếp.',
   },
 ]
 
