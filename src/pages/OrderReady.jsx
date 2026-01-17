@@ -24,7 +24,7 @@ const OrderReady = () => {
         <View style={styles.info}>
           <Text style={styles.infoTitle}>Chi tiết đơn</Text>
           <Text style={styles.infoText}>Matcha Latte Signature · 1 ly</Text>
-          <Text style={styles.infoText}>Giờ mở cửa: 07:30 – 23:00</Text>
+          <Text style={styles.infoText}>Giờ mở cửa: 0rder:19:10</Text>
           <Text style={styles.infoText}>Vị trí: Quầy Matte Matcha & Teabar</Text>
         </View>
       </ScrollView>
