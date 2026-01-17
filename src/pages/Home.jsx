@@ -17,17 +17,17 @@ const highlights = [
   {
     icon: '🍃',
     title: 'Matcha Nhật Bản',
-    desc: 'Bột matcha 100% tự nhiên, xay tay mỗi lần order.',
+    desc: 'Bột matcha 100% tự nhiên, chính hãng từ Nhật Bản.',
   },
   {
     icon: '🫖',
-    title: 'Signature',
-    desc: 'Các base trà cold brew, latte trà xanh.',
+    title: 'Thức Uống Cân Vị',
+    desc: 'Ngọt nhẹ, dễ uống, rõ vị matcha',
   },
   {
     icon: '📍',
-    title: 'Matte Matcha Q7',
-    desc: 'Quán Matte Matcha & Teabar phục vụ trực tiếp.',
+    title: 'Không Gian Q7',
+    desc: 'Không gian xanh, yên tĩnh, phù hợp ngồi làm việc.',
   },
 ]
 
