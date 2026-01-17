@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "pheLaOrderApp",
-    "slug": "phe-la-order-app",
+    "name": "matteMatchaTeabarr",
+    "slug": "matte-matcha-teabarr",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/phela.png",
@@ -16,14 +16,14 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.phela.orderapp"
+      "bundleIdentifier": "com.matte.matcha.teabarr"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/phela.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.phela.orderapp"
+      "package": "com.matte.matcha.teabarr"
     },
     "web": {
       "favicon": "./assets/phela.png",

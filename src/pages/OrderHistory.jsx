@@ -80,22 +80,22 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 22,
     fontWeight: '700',
-    color: '#0f172a',
+    color: '#0f3d24',
     marginBottom: 16,
   },
   message: {
     fontSize: 16,
-    color: '#475569',
+    color: '#1f4531',
     marginVertical: 12,
   },
   orderCard: {
     marginBottom: 16,
     padding: 16,
     borderRadius: 16,
-    backgroundColor: '#fff',
+    backgroundColor: '#f5faf5',
     borderWidth: 1,
-    borderColor: '#e2e8f0',
-    shadowColor: '#000',
+    borderColor: 'rgba(17, 67, 39, 0.2)',
+    shadowColor: '#0c3c22',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.08,
     shadowRadius: 6,
@@ -109,16 +109,16 @@ const styles = StyleSheet.create({
   orderCode: {
     fontSize: 16,
     fontWeight: '700',
-    color: '#0f172a',
+    color: '#0f3d24',
   },
   orderDate: {
     fontSize: 12,
-    color: '#64748b',
+    color: '#1f4531',
   },
   orderTotal: {
     fontSize: 14,
     marginBottom: 8,
-    color: '#0f172a',
+    color: '#0f3d24',
     fontWeight: '600',
   },
   orderItem: {
@@ -128,11 +128,11 @@ const styles = StyleSheet.create({
   },
   itemName: {
     fontSize: 14,
-    color: '#0f172a',
+    color: '#0f3d24',
   },
   itemMeta: {
     fontSize: 14,
-    color: '#475569',
+    color: '#1f4531',
   },
 })
 

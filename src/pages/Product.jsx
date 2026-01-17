@@ -41,10 +41,9 @@ const Product = () => {
     <Layout>
       <ScrollView style={styles.container}>
         <View style={styles.hero}>
-          <Text style={styles.heroTitle}>Danh sách đồ uống</Text>
+          <Text style={styles.heroTitle}>Thực đơn Matte Matcha & Teabarr</Text>
           <Text style={styles.heroDesc}>
-            Tất cả sản phẩm hiện có tại Phê La Order đều tập trung ở đây. Lọc theo category, add
-            vào giỏ là xong.
+            Mọi matcha, trân châu tea, soda và bánh ngọt được tuyển chọn kỹ càng tại Matte Matcha & Teabarr Quận 1.
           </Text>
         </View>
 
@@ -119,16 +118,16 @@ const styles = StyleSheet.create({
     margin: 16,
     padding: 24,
     borderRadius: 24,
-    backgroundColor: '#0f172a',
+    backgroundColor: '#0b3221',
   },
   heroTitle: {
     fontSize: 26,
     fontWeight: '700',
-    color: '#fef9c3',
+    color: '#e2ffe0',
     marginBottom: 8,
   },
   heroDesc: {
-    color: '#d1d5db',
+    color: '#c7f1d7',
     fontSize: 16,
     lineHeight: 22,
   },
@@ -142,20 +141,20 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: '#e5e7eb',
-    backgroundColor: '#fff',
+    borderColor: 'rgba(16, 67, 38, 0.3)',
+    backgroundColor: '#f3f9f4',
     marginRight: 12,
   },
   filterChipActive: {
-    backgroundColor: '#0f172a',
-    borderColor: '#0f172a',
+    backgroundColor: '#0f3e24',
+    borderColor: '#0f3e24',
   },
   filterText: {
-    color: '#0f172a',
+    color: '#0f3e24',
     fontWeight: '600',
   },
   filterTextActive: {
-    color: '#fef9c3',
+    color: '#d8ffe5',
   },
   productsGrid: {
     paddingHorizontal: 16,
@@ -163,10 +162,10 @@ const styles = StyleSheet.create({
   },
   productCard: {
     flexDirection: 'row',
-    backgroundColor: '#fff',
+    backgroundColor: '#f6fbf7',
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: '#e5e7eb',
+    borderColor: 'rgba(17, 67, 39, 0.2)',
     overflow: 'hidden',
     marginBottom: 16,
     minHeight: 150,
@@ -187,18 +186,18 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontSize: 12,
     letterSpacing: 1.2,
-    color: '#475569',
+    color: '#1f4531',
     marginBottom: 4,
   },
   productName: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#0f172a',
+    color: '#153823',
     marginBottom: 6,
   },
   productDesc: {
     fontSize: 14,
-    color: '#475569',
+    color: '#1a422f',
     lineHeight: 20,
     marginBottom: 8,
   },
@@ -211,10 +210,10 @@ const styles = StyleSheet.create({
   productPrice: {
     fontSize: 16,
     fontWeight: '700',
-    color: '#dc2626',
+    color: '#16a34a',
   },
   addButton: {
-    backgroundColor: '#0f172a',
+    backgroundColor: '#0a3b21',
     borderRadius: 12,
     paddingVertical: 8,
     paddingHorizontal: 16,

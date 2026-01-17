@@ -1,29 +1,28 @@
-# Phê La Order Web
+# Matte Matcha & Teabarr Web
 
-Đây là phiên bản web (đã deploy trên Vercel) của trải nghiệm order nước Phê La. Không cần cài gì, chỉ cần gửi cho khách hàng đường dẫn trên Vercel là họ có thể:
+Phiên bản web này giới thiệu trải nghiệm order nước tại Matte Matcha & Teabarr Quận 1: chỉ cần mở link, quét QR từng ly matcha/teabarr, thêm vào giỏ và thanh toán thử nghiệm ngay trên trình duyệt.
 
-- Xem danh sách sản phẩm được gợi ý cùng ảnh, tên, giá từng loại.
-- Thêm sản phẩm vào giỏ và điều chỉnh số lượng trực tiếp trong giao diện.
-- Nhấn nút “Đặt hàng” để mở modal chọn phương thức thanh toán.
-- Dùng MoMo QR: hệ thống gọi API MoMo sandbox và hiện mã QR trên màn hình. Bạn có thể quét hoặc dùng nút “Mở MoMo” để chuyển sang app.
-- Dùng “Thanh toán bằng ngân hàng” giả lập: sẽ hiện ảnh mã QR tĩnh, sau 30 giây tự đóng, xóa giỏ hàng và chuyển về trang chủ kèm thông báo.
-- Xem lại lịch sử các đơn hàng vừa thanh toán bằng ngân hàng từ menu header (“Lịch sử đặt hàng”).
+- Xem nhanh thực đơn matcha latte, teabarr signature, soda trà và dessert.
+- Thêm món, thay đổi số lượng, gạt qua gạt lại giữa các lựa chọn mà không cần reload.
+- Nhấn **Đặt hàng** để chọn cổng thanh toán phù hợp (MoMo sandbox hoặc mô phỏng ngân hàng).
+- MoMo QR tạo mã từ sandbox API, trình duyệt sẽ hiện QR hoặc mở app MoMo nếu bạn bấm “Mở MoMo”.
+- “Thanh toán ngân hàng” là trải nghiệm mô phỏng: hiển thị QR tĩnh, đếm 30 giây rồi báo thành công và lưu đơn vào lịch sử để tham khảo.
+- Lịch sử đơn hàng nằm trong menu header, lưu tối đa 20 đơn gần nhất từ các thanh toán ngân hàng.
 
-## Hướng dẫn dùng (dành cho người không chuyên)
+## Hướng dẫn cho người mới
 
-1. **Truy cập link Vercel** → sẽ vào thẳng trang Home với banner và vài lời giới thiệu.
-2. **Duyệt sản phẩm** bằng cách bấm vào từng thẻ rồi nhấn “Thêm vào giỏ”. Giỏ hàng nằm ở góc trên cùng (hình 🛒).
-3. **Mở giỏ** bằng nút “Giỏ hàng” hoặc biểu tượng Ơ trên header. Kiểm tra số lượng, bấm “Đặt hàng” để chọn phương thức.
-4. **Chọn MoMo** nếu bạn muốn chạy sandbox QR: hệ thống sẽ hiển thị mã, tiếp theo quét bằng app MoMo hoặc bấm “Mở MoMo” (không thanh toán được vì cần thêm quyền từ momo).
-5. **Chọn Ngân hàng** để xem mô phỏng thanh toán bằng hình ảnh QR, chờ 30s để xong – web sẽ báo thành công và đưa bạn về trang chủ. THANH TOÁN BẰNG NÀY THÌ HÀNG ĐÃ ORDER SẼ ĐƯỢC LƯU LẠI CÒN MOMO THÌ KHÔNG.
-6. **Xem lịch sử đơn** từ menu (góc phải trên cùng): nó lưu lại tối đa 20 đơn vừa thanh toán bằng ngân hàng để bạn kiểm tra lại.
+1. **Mở link web** → trang Home hiện banner Matte Matcha & Teabarr cùng thông tin thương hiệu.
+2. **Duyệt đồ uống** qua phần “Thực đơn” hoặc “Đồ uống gợi ý”, bấm “Thêm vào giỏ” để gom món.
+3. **Mở giỏ** bằng biểu tượng 🛒 trên header, kiểm tra số lượng, bấm “Đặt hàng”.
+4. **Chọn MoMo** để tạo QR sandbox, quét bằng app MoMo hoặc bấm “Mở MoMo” nếu trình duyệt hỗ trợ.
+5. **Chọn Ngân hàng** nếu bạn muốn trải nghiệm mô phỏng mã QR – hệ thống sẽ đếm 30 giây, báo thành công và xóa giỏ hàng.
+6. **Xem lịch sử đơn** từ menu: chỉ lưu đơn đã xác nhận bằng ngân hàng (không lưu MoMo).
 
-## Những điều nên biết
+## Những điều lưu ý
 
-- **Không cần đăng nhập:** toàn bộ trải nghiệm dành cho khách hàng mở link nên bạn không phải điền email hay mật khẩu.
-- **Lịch sử đơn hàng:** chỉ lưu tại thiết bị (localStorage). Nếu bạn xoá cache hoặc chuyển thiết bị khác thì lịch sử sẽ mất.
-- **QR MoMo:** chạy sandbox nên chỉ để thử nghiệm; link sẽ đóng sau vài phút nếu không quét. Đảm bảo người dùng tạo lại đơn để có mã mới.
-- **Thanh toán ngân hàng:** chỉ là mô phỏng (hiện ảnh mã và mãn thời gian) để khách hàng thấy giao diện; không thực sự xác nhận với ngân hàng.
-- **Giỏ hàng tự xoá** sau khi thanh toán thành công, để tránh bị trùng đơn khi thử lại.
-
+- **Không cần đăng nhập:** toàn bộ trải nghiệm khách mở link đều có thể order ngay.
+- **Lịch sử đơn hàng:** lưu bên trên thiết bị (localStorage). Xóa cache hay đổi thiết bị sẽ mất dữ liệu.
+- **QR MoMo:** chạy sandbox, thích hợp để demo; mã QR hết hạn sau vài phút nếu không quét lại.
+- **Thanh toán ngân hàng:** chỉ mô phỏng, để khách thử cảm giác; không xác nhận trên hệ thống ngân hàng thật.
+- **Giỏ hàng tự xoá** sau khi thanh toán thành công.
 

@@ -31,8 +31,8 @@ const Header = () => {
             style={styles.logo}
             onPress={() => navigation.navigate('Home')}
           >
-            <Text style={styles.logoIcon}>☕️</Text>
-            <Text style={styles.logoText}>Phê La Order</Text>
+            <Text style={styles.logoIcon}>🍵</Text>
+            <Text style={styles.logoText}>Matte Matcha & Teabarr</Text>
           </TouchableOpacity>
 
         <View style={styles.headerRight}>
@@ -96,9 +96,9 @@ const Header = () => {
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: '#0f172a',
+    backgroundColor: '#0b3d24',
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(255, 255, 255, 0.08)',
+    borderBottomColor: 'rgba(149, 210, 166, 0.2)',
     paddingTop: 36,
     paddingBottom: 12,
   },
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
   logoText: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#f8fafc',
+    color: '#e0f8e8',
   },
   headerRight: {
     flexDirection: 'row',
@@ -132,13 +132,13 @@ const styles = StyleSheet.create({
   },
   cartIcon: {
     fontSize: 24,
-    color: '#fef9c3',
+    color: '#d9ffe4',
   },
   cartBadge: {
     position: 'absolute',
     top: 4,
     right: 4,
-    backgroundColor: '#e74c3c',
+    backgroundColor: '#facc15',
     borderRadius: 10,
     minWidth: 20,
     height: 20,
@@ -161,19 +161,21 @@ const styles = StyleSheet.create({
   },
   menuLine: {
     height: 2,
-    backgroundColor: '#fef9c3',
+    backgroundColor: '#c2ffd8',
     borderRadius: 1,
   },
   modalOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(2, 6, 23, 0.8)',
+    backgroundColor: 'rgba(2, 23, 10, 0.85)',
   },
   menuContainer: {
-    backgroundColor: '#020617',
+    backgroundColor: '#042015',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     marginTop: 'auto',
     maxHeight: '80%',
+    borderColor: 'rgba(149, 210, 166, 0.4)',
+    borderWidth: 1,
   },
   menuContent: {
     padding: 20,

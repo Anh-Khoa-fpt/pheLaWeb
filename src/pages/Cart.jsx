@@ -22,9 +22,9 @@ import { formatCurrency } from '../utils/currency'
 import { ORDER_HISTORY_KEY } from '../constants/storageKeys'
 
 const MOMO_RETURN_URL =
-  process.env.EXPO_PUBLIC_MOMO_RETURN_URL || 'https://phela.vercel.app/momo-return'
+  process.env.EXPO_PUBLIC_MOMO_RETURN_URL || 'https://matte-matcha.vercel.app/momo-return'
 const MOMO_IPN_URL =
-  process.env.EXPO_PUBLIC_MOMO_IPN_URL || 'https://phela.vercel.app/momo-ipn'
+  process.env.EXPO_PUBLIC_MOMO_IPN_URL || 'https://matte-matcha.vercel.app/momo-ipn'
 
 const Cart = () => {
   const navigation = useNavigation()
@@ -39,7 +39,7 @@ const Cart = () => {
   } = useCart()
 
   const orderCode = useMemo(
-    () => `PHELA-${Math.floor(Math.random() * 900000 + 100000)}`,
+    () => `MATTE-${Math.floor(Math.random() * 900000 + 100000)}`,
     []
   )
 
@@ -200,10 +200,9 @@ const Cart = () => {
     <Layout>
       <ScrollView style={styles.container}>
         <View style={styles.hero}>
-          <Text style={styles.heroTitle}>Giỏ hàng order nước</Text>
+          <Text style={styles.heroTitle}>Giỏ hàng Matte Matcha & Teabarr</Text>
           <Text style={styles.heroDesc}>
-            Bạn đang gom những ly nước thơm ngon để chuẩn bị thưởng thức tại bàn. Nhấn đặt để thanh toán
-            online và chờ tới quầy nhận món nhé.
+            Tất cả đồ uống matcha, teabarr và soda bạn chuẩn bị thưởng thức đều nằm trong giỏ. Nhấn đặt để hoàn tất.
           </Text>
           {orderMessage ? (
             <View style={styles.orderMessage}>
@@ -470,17 +469,17 @@ const styles = StyleSheet.create({
   },
   hero: {
     padding: 20,
-    backgroundColor: '#f8f9fa',
+    backgroundColor: '#0b3c24',
   },
   heroTitle: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#2c3e50',
+    color: '#e4ffe4',
     marginBottom: 12,
   },
   heroDesc: {
     fontSize: 16,
-    color: '#7f8c8d',
+    color: '#c9f3d1',
     lineHeight: 24,
   },
   orderMessage: {
@@ -500,7 +499,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#1e3a8a',
+    backgroundColor: '#0f4b2d',
     paddingHorizontal: 12,
     paddingVertical: 10,
     borderRadius: 12,
@@ -516,7 +515,7 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: 16,
-    color: '#7f8c8d',
+    color: '#1d4531',
     textAlign: 'center',
   },
   cartList: {
@@ -524,13 +523,13 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   cartItem: {
-    backgroundColor: '#fff',
+    backgroundColor: '#f6fbf7',
     borderRadius: 12,
     padding: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowColor: '#0c3e1d',
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
-    shadowRadius: 4,
+    shadowRadius: 6,
     elevation: 3,
   },
   cartItemMain: {
@@ -539,12 +538,12 @@ const styles = StyleSheet.create({
   cartItemName: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#2c3e50',
+    color: '#0c3a22',
     marginBottom: 4,
   },
   cartItemPrice: {
     fontSize: 14,
-    color: '#7f8c8d',
+    color: '#1d4531',
   },
   cartItemMeta: {
     flexDirection: 'row',
@@ -559,28 +558,28 @@ const styles = StyleSheet.create({
   cartLineTotal: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#e74c3c',
+    color: '#15803d',
   },
   cartItemActions: {
     flexDirection: 'row',
     gap: 8,
   },
   cartAction: {
-    backgroundColor: '#fef9c3',
+    backgroundColor: '#e5ffec',
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 6,
     minWidth: 40,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#0f172a',
+    borderColor: '#0f4b2d',
   },
   cartActionRemove: {
-    backgroundColor: '#dc2626',
-    borderColor: '#dc2626',
+    backgroundColor: '#fde68a',
+    borderColor: '#fde68a',
   },
   cartActionText: {
-    color: '#0f172a',
+    color: '#0f3c24',
     fontSize: 14,
     fontWeight: 'bold',
   },
@@ -588,28 +587,28 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     marginBottom: 20,
     padding: 14,
-    backgroundColor: '#0f172a',
+    backgroundColor: '#0f4b2d',
     borderRadius: 12,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#fef9c3',
-    shadowColor: '#0f172a',
+    borderColor: '#14b260',
+    shadowColor: '#0a3821',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.25,
     shadowRadius: 8,
     elevation: 4,
   },
   clearButtonText: {
-    color: '#fef9c3',
+    color: '#e8ffe8',
     fontSize: 16,
     fontWeight: 'bold',
   },
   summary: {
-    backgroundColor: '#fff',
+    backgroundColor: '#f3faf4',
     padding: 20,
     marginTop: 20,
     borderTopWidth: 1,
-    borderTopColor: '#e0e0e0',
+    borderTopColor: 'rgba(17, 67, 39, 0.2)',
   },
   summaryRow: {
     flexDirection: 'row',
@@ -619,28 +618,28 @@ const styles = StyleSheet.create({
   },
   summaryLabel: {
     fontSize: 18,
-    color: '#2c3e50',
+    color: '#0f3c24',
   },
   summaryTotal: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#e74c3c',
+    color: '#15803d',
   },
   checkoutButton: {
-    backgroundColor: '#0f172a',
+    backgroundColor: '#114d2f',
     borderRadius: 8,
     padding: 16,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#fef9c3',
-    shadowColor: '#0f172a',
+    borderColor: '#14b260',
+    shadowColor: '#0a351f',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.25,
+    shadowOpacity: 0.35,
     shadowRadius: 6,
     elevation: 4,
   },
   checkoutButtonText: {
-    color: '#fef9c3',
+    color: '#e8ffe8',
     fontSize: 18,
     fontWeight: 'bold',
   },
@@ -651,12 +650,12 @@ const styles = StyleSheet.create({
     padding: 24,
   },
   modalContent: {
-    backgroundColor: '#fff',
+    backgroundColor: '#f5faf5',
     borderRadius: 24,
     padding: 24,
     borderWidth: 1,
-    borderColor: '#0f172a',
-    shadowColor: '#000',
+    borderColor: '#0f3d24',
+    shadowColor: '#05210f',
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.3,
     shadowRadius: 12,
@@ -665,12 +664,12 @@ const styles = StyleSheet.create({
   modalTitle: {
     fontSize: 20,
     fontWeight: '700',
-    color: '#0f172a',
+    color: '#0f3c24',
     marginBottom: 12,
   },
   modalNote: {
     fontSize: 14,
-    color: '#475569',
+    color: '#1e4330',
     marginBottom: 16,
     lineHeight: 20,
   },
@@ -679,6 +678,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: 'center',
     marginBottom: 12,
+    backgroundColor: '#0f4b2d',
   },
   modalButtonDisabled: {
     opacity: 0.6,
@@ -688,14 +688,16 @@ const styles = StyleSheet.create({
   },
   modalButtonBorder: {
     borderWidth: 1,
-    borderColor: '#0f172a',
+    borderColor: '#14b260',
+    backgroundColor: '#e8ffe8',
   },
   modalButtonText: {
-    color: '#fef9c3',
+    color: '#e8ffe8',
     fontWeight: '700',
   },
   modalButtonBorderText: {
-    color: '#0f172a',
+    color: '#0f3d24',
+    fontWeight: '700',
   },
   modalButtonBorderTextDisabled: {
     color: '#94a3b8',
@@ -709,11 +711,11 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   modalButtonPink: {
-    backgroundColor: '#ff4f8b',
+    backgroundColor: '#0f4b2d',
     borderWidth: 0,
   },
   modalButtonPinkText: {
-    color: '#fff',
+    color: '#e8ffe8',
   },
   qrModalOverlay: {
     flex: 1,
@@ -722,12 +724,12 @@ const styles = StyleSheet.create({
     padding: 24,
   },
   qrModalContent: {
-    backgroundColor: '#fff',
+    backgroundColor: '#f5faf5',
     borderRadius: 24,
     padding: 24,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#0f172a',
+    borderColor: '#0f3d24',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.3,
@@ -736,7 +738,7 @@ const styles = StyleSheet.create({
   },
   qrInstruction: {
     fontSize: 14,
-    color: '#475569',
+    color: '#1e4330',
     textAlign: 'center',
     marginBottom: 12,
   },
@@ -775,11 +777,11 @@ const styles = StyleSheet.create({
   qrTitleInline: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#0f172a',
+    color: '#0f3c24',
   },
   qrSubtitleInline: {
     fontSize: 14,
-    color: '#475569',
+    color: '#1e4330',
     textAlign: 'center',
   },
   qrImageInline: {
@@ -788,7 +790,7 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   qrButtonInline: {
-    backgroundColor: '#ff4f8b',
+    backgroundColor: '#0f4b2d',
     borderRadius: 12,
     paddingVertical: 10,
     paddingHorizontal: 32,

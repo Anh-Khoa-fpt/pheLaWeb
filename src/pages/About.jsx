@@ -7,36 +7,32 @@ const About = () => {
     <Layout>
       <ScrollView style={styles.container}>
         <View style={styles.hero}>
-          <Text style={styles.title}>Phê La Order</Text>
+          <Text style={styles.title}>Matte Matcha & Teabarr</Text>
           <Text style={styles.subtitle}>
-            Không chỉ là quán nước, mà là trải nghiệm đặt hàng nhanh – quét QR, chọn món, nhận mã và
-            lấy ngay tại quầy.
+            Từ matcha tươi Nhật Bản đến teabarr cold brew, mỗi ly đều được điều chỉnh theo khẩu vị bạn chọn.
           </Text>
         </View>
 
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Tầm nhìn</Text>
           <Text style={styles.sectionContent}>
-            Mang đến cho khách hàng cách gọi món hiện đại, tối ưu thời gian xếp hàng tại quầy bằng
-            giao diện web mobile-first. Mọi lượt order đều được ghi nhận và cho phép điều chỉnh dễ
-            dàng.
+            Lấy matcha và trà cao cấp làm trung tâm, kết hợp công nghệ để khách order nhanh hơn và tận hưởng không gian teabarr.
           </Text>
         </View>
 
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Đội ngũ</Text>
           <Text style={styles.sectionContent}>
-            Barista và developer cùng phối hợp để duy trì chất lượng đồ uống và trải nghiệm kỹ thuật số
-            trên mọi thiết bị, từ điện thoại đến máy tính bảng.
+            Barista chuyên matcha và đội kỹ thuật hợp lực để giữ chất lượng, từ ly matcha latte đến giao diện web mượt mà.
           </Text>
         </View>
 
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Cam kết</Text>
           <Text style={styles.sectionContent}>
-            - Nguồn nguyên liệu sạch, kiểm định đầy đủ.{'\n'}
-            - Quản lý đơn hàng qua QR và mã call để tránh nhầm đơn.{'\n'}
-            - Lưu trữ tạm thời giỏ hàng giúp khách quay lại đặt tiếp dễ dàng.
+            - Nhập matcha, trà và topping hữu cơ, đảm bảo không chất bảo quản.{'\n'}
+            - QR menu riêng cho từng bàn, tránh chờ lâu vào giờ cao điểm.{'\n'}
+            - Giỏ hàng giữ đơn cũ để khách dễ order lại vị ưa thích.
           </Text>
         </View>
       </ScrollView>
@@ -52,16 +48,16 @@ const styles = StyleSheet.create({
     margin: 16,
     padding: 24,
     borderRadius: 24,
-    backgroundColor: '#0f172a',
+    backgroundColor: '#0b3221',
   },
   title: {
     fontSize: 28,
     fontWeight: '800',
-    color: '#fef9c3',
+    color: '#e2ffe0',
     marginBottom: 12,
   },
   subtitle: {
-    color: '#e2e8f0',
+    color: '#c6f2d6',
     fontSize: 16,
     lineHeight: 24,
   },
@@ -69,7 +65,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     marginBottom: 20,
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: '#f5fbf7',
     borderRadius: 20,
     borderWidth: 1,
     borderColor: '#e5e7eb',
@@ -78,11 +74,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '700',
     marginBottom: 8,
-    color: '#0f172a',
+    color: '#0b371d',
   },
   sectionContent: {
     fontSize: 16,
-    color: '#475569',
+    color: '#1a422f',
     lineHeight: 22,
   },
 })

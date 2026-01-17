@@ -15,28 +15,34 @@ import ProductModal from '../components/common/ProductModal'
 
 const highlights = [
   {
-    icon: '⚡',
-    title: 'Nhanh chóng',
-    desc: 'Order xong là thanh toán, chờ tới quầy nhận món nhé.',
+    icon: '🍃',
+    title: 'Matcha Nhật Bản',
+    desc: 'Bột matcha 100% tự nhiên, xay tay mỗi lần order.',
   },
   {
-    icon: '📱',
-    title: 'Quét QR là xong',
-    desc: 'Hướng dẫn rõ, không cần đăng nhập phức tạp.',
+    icon: '🫖',
+    title: 'Teabarr Signature',
+    desc: 'Các base trà cold brew, latte trà xanh và soda tự phối.',
   },
   {
-    icon: '🛡️',
-    title: 'Tươi mới mỗi ly',
-    desc: 'Pha tay theo thứ tự để nhâm nhi ngay.',
+    icon: '📍',
+    title: 'Matte Matcha Q1',
+    desc: 'Quán Matte Matcha & Teabarr tại Quận 1 phục vụ trực tiếp.',
   },
 ]
 
 const steps = [
-  { label: 'Quét QR', detail: 'Mở camera, quét QR Phê La Order.' },
-  { label: 'Chọn món', detail: 'Chọn trà, cà phê, soda theo tâm trạng.' },
   {
-    label: 'Thanh Toán',
-    detail: 'Thanh toán online, chờ tới quầy nhận món nhé.',
+    label: 'Quét QR Matte',
+    detail: 'Mở camera, quét QR Matte Matcha & Teabarr.',
+  },
+  {
+    label: 'Chọn base trà',
+    detail: 'Tùy chỉnh matcha latte, teabarr cold brew hay soda trà.',
+  },
+  {
+    label: 'Nhận ly',
+    detail: 'Thanh toán online, ra quầy lấy món trong vòng 3 phút.',
   },
 ]
 
@@ -74,27 +80,26 @@ const Home = () => {
           />
           <View style={styles.heroOverlay} />
           <View style={styles.heroContent}>
-            <Text style={styles.heroEyebrow}>Order nước nhanh tại Phê La</Text>
-            <Text style={styles.heroTitle}>Quét QR, gọi món, nhận liền</Text>
-            <Text style={styles.heroSubtitle}>
-              Giao diện web tươi sáng, giỏ hàng tối giản, đang tập trung vào trải nghiệm đặt nước
-              nhanh chóng tại quầy Phê La.
-            </Text>
+          <Text style={styles.heroEyebrow}>Matte Matcha & Teabarr · Quận 1</Text>
+          <Text style={styles.heroTitle}>Matcha tươi & Tea Bar chill</Text>
+          <Text style={styles.heroSubtitle}>
+            Quét QR, chọn base matcha hoặc teabarr, thanh toán tức thì rồi nhận ly trong 5 phút.
+          </Text>
             <View style={styles.heroButtons}>
-              <TouchableOpacity
-                style={styles.btnPrimary}
-                onPress={() => navigation.navigate('Product')}
-                activeOpacity={0.8}
-              >
-                <Text style={styles.btnPrimaryText}>Xem thực đơn</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.btnSecondary}
-                onPress={() => navigation.navigate('Cart')}
-                activeOpacity={0.8}
-              >
-                <Text style={styles.btnGiohangText}>Giỏ hàng ({totalCount})</Text>
-              </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.btnPrimary}
+            onPress={() => navigation.navigate('Product')}
+            activeOpacity={0.8}
+          >
+            <Text style={styles.btnPrimaryText}>Khám phá trà & soda</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.btnSecondary}
+            onPress={() => navigation.navigate('Cart')}
+            activeOpacity={0.8}
+          >
+            <Text style={styles.btnGiohangText}>Giỏ hàng ({totalCount})</Text>
+          </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -207,7 +212,7 @@ const styles = StyleSheet.create({
   heroOverlay: {
     position: 'absolute',
     inset: 0,
-    backgroundColor: 'rgba(3, 7, 18, 0.65)',
+    backgroundColor: 'rgba(3, 36, 17, 0.75)',
     opacity: 0.9,
   },
   heroContent: {
@@ -218,7 +223,7 @@ const styles = StyleSheet.create({
     zIndex: 2,
   },
   heroEyebrow: {
-    color: '#fef9c3',
+    color: '#d4ffe7',
     fontSize: 14,
     letterSpacing: 1.5,
     textTransform: 'uppercase',
@@ -228,35 +233,35 @@ const styles = StyleSheet.create({
   heroTitle: {
     fontSize: 32,
     fontWeight: '800',
-    color: '#fff',
+    color: '#ebffe7',
     marginBottom: 16,
   },
   heroSubtitle: {
-    color: '#e2e8f0',
+    color: '#e8f7ec',
     fontSize: 16,
     lineHeight: 24,
     maxWidth: 520,
     marginBottom: 28,
   },
   bankSuccessBanner: {
-    backgroundColor: '#ecfccb',
+    backgroundColor: '#e3ffde',
     borderRadius: 16,
     padding: 16,
     marginBottom: 16,
     borderWidth: 1,
-    borderColor: '#84cc16',
+    borderColor: '#34d399',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     gap: 12,
   },
   bankSuccessText: {
-    color: '#14532d',
+    color: '#145332',
     fontSize: 14,
     flex: 1,
   },
   bankSuccessDismiss: {
-    color: '#0f172a',
+    color: '#0a361c',
     fontWeight: '600',
   },
   heroButtons: {
@@ -264,7 +269,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   btnPrimary: {
-    backgroundColor: '#fef9c3',
+    backgroundColor: '#e5f8ea',
     paddingHorizontal: 24,
     paddingVertical: 14,
     borderRadius: 12,
@@ -272,23 +277,23 @@ const styles = StyleSheet.create({
   },
   btnPrimaryText: {
     fontWeight: '700',
-    color: '#0f172a',
+    color: '#0a3d1d',
     fontSize: 16,
   },
   btnSecondary: {
     borderWidth: 1,
-    borderColor: '#fef9c3',
+    borderColor: '#7ed0a3',
     paddingHorizontal: 24,
     paddingVertical: 14,
     borderRadius: 12,
   },
   btnGiohangText: {
-    color: '#ffffff',
+    color: '#e7ffed',
     fontWeight: '600',
     fontSize: 16,
   },
   btnSecondaryText: {
-    color: '##fef9c3',
+    color: '#d7ffe4',
     fontWeight: '600',
     fontSize: 16,
   },
@@ -299,11 +304,11 @@ const styles = StyleSheet.create({
   },
   highlightCard: {
     flex: 1,
-    backgroundColor: '#0f172a',
+    backgroundColor: '#0f3d24',
     borderRadius: 18,
     padding: 20,
     borderWidth: 1,
-    borderColor: 'rgba(254, 249, 195, 0.3)',
+    borderColor: 'rgba(126, 215, 164, 0.4)',
     minHeight: 150,
     marginRight: 12,
   },
@@ -326,17 +331,17 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
   previewSection: {
-    backgroundColor: '#fff',
+    backgroundColor: '#ebf7ed',
     borderRadius: 28,
     padding: 24,
     marginBottom: 28,
     borderWidth: 1,
-    borderColor: '#e5e7eb',
+    borderColor: 'rgba(31, 64, 40, 0.2)',
   },
   previewTitle: {
     fontSize: 22,
     fontWeight: '700',
-    color: '#0f172a',
+    color: '#0a3d1d',
     marginBottom: 24,
   },
   productGrid: {
@@ -346,11 +351,11 @@ const styles = StyleSheet.create({
   productCard: {
     flex: 1,
     minWidth: 150,
-    backgroundColor: '#f8fafc',
+    backgroundColor: '#f6fbf7',
     borderRadius: 20,
     padding: 12,
     borderWidth: 1,
-    borderColor: '#e5e7eb',
+    borderColor: 'rgba(16, 67, 38, 0.2)',
     marginRight: 12,
     marginBottom: 16,
   },
@@ -366,7 +371,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   productCategory: {
-    color: '#64748b',
+    color: '#1f4531',
     fontSize: 12,
     textTransform: 'uppercase',
     letterSpacing: 1,
@@ -374,40 +379,40 @@ const styles = StyleSheet.create({
   productName: {
     fontSize: 16,
     fontWeight: '700',
-    color: '#0f172a',
+    color: '#153823',
   },
   productPrice: {
-    color: '#ef4444',
+    color: '#16a34a',
     fontWeight: '700',
   },
   addButton: {
     marginTop: 12,
-    backgroundColor: '#0f172a',
+    backgroundColor: '#0a3b20',
     paddingVertical: 10,
     borderRadius: 12,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#fef9c3',
-    shadowColor: '#0f172a',
-    shadowOpacity: 0.25,
+    borderColor: '#0a3b20',
+    shadowColor: '#0a3b20',
+    shadowOpacity: 0.35,
     shadowRadius: 8,
     elevation: 3,
     alignSelf: 'stretch',
   },
   addButtonText: {
-    color: '#fef9c3',
+    color: '#e8ffe8',
     fontWeight: '700',
   },
   stepsSection: {
-    backgroundColor: '#0f172a',
+    backgroundColor: '#0a311b',
     borderRadius: 28,
     padding: 24,
     borderWidth: 1,
-    borderColor: 'rgba(254, 249, 195, 0.4)',
+    borderColor: 'rgba(90, 236, 166, 0.22)',
     marginBottom: 24,
   },
   stepsTitle: {
-    color: '#fef9c3',
+    color: '#defbdc',
     fontSize: 22,
     fontWeight: '700',
     marginBottom: 16,
@@ -420,7 +425,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     borderRadius: 16,
-    backgroundColor: '#111827',
+    backgroundColor: '#0f2819',
     borderWidth: 1,
     borderColor: 'rgba(255, 255, 255, 0.08)',
     marginRight: 12,
@@ -429,18 +434,18 @@ const styles = StyleSheet.create({
     marginRight: 0,
   },
   stepNumber: {
-    color: '#fef9c3',
+    color: '#76f0b3',
     fontSize: 20,
     fontWeight: '700',
   },
   stepLabel: {
-    color: '#e2e8f0',
+    color: '#d2f7d4',
     fontSize: 16,
     fontWeight: '700',
     marginTop: 6,
   },
   stepDetail: {
-    color: '#cbd5f5',
+    color: '#baf4ca',
     fontSize: 14,
     marginTop: 6,
   },

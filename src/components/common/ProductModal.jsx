@@ -62,7 +62,7 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                   <Text style={styles.detailValue}>{product.price}</Text>
                 </View>
                 <View style={styles.detailItem}>
-                  <Text style={styles.detailLabel}>Độ tươi:</Text>
+                  <Text style={styles.detailLabel}>Miêu tả:</Text>
                   <Text style={styles.detailValue}>{product.freshness}</Text>
                 </View>
               </View>
@@ -177,10 +177,10 @@ const styles = StyleSheet.create({
   detailValue: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#1e3c72',
+    color: '#0f4b2d',
   },
   addButton: {
-    backgroundColor: '#0f172a',
+    backgroundColor: '#0f4b2d',
     borderRadius: 12,
     padding: 16,
     alignItems: 'center',
