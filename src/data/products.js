@@ -24,7 +24,7 @@ export const PRODUCTS = [
     priceValue: 92000,
     category: 'Iced Matcha Latte',
     desc: 'Matcha Latte Signature kết hợp bột YABUKITA và Okumidori.',
-    image: 'https://i.postimg.cc/sDTpCzb6/image.png',
+    image: 'https://i.postimg.cc/fLLbX3wV/vn-11134505-7ras8-mbm7bwwbrvb869.jpg',
   },
   {
     id: 4,
@@ -33,7 +33,7 @@ export const PRODUCTS = [
     priceValue: 77000,
     category: 'Iced Matcha Latte',
     desc: 'Phiên bản size M, giữ vẹn vị matcha kem mịn và đá nhuyễn.',
-    image: 'https://i.postimg.cc/sDTpCzb6/image.png',
+    image: 'https://i.postimg.cc/fLLbX3wV/vn-11134505-7ras8-mbm7bwwbrvb869.jpg',
   },
   {
     id: 5,

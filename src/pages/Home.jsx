@@ -83,23 +83,23 @@ const Home = () => {
           <Text style={styles.heroEyebrow}>Matte Matcha & Teabar · Quận 7</Text>
           <Text style={styles.heroTitle}>Matcha tươi & Tea Bar</Text>
           <Text style={styles.heroSubtitle}>
-            Quét QR, chọn base matcha hoặc Teabar, thanh toán tức thì rồi nhận ly trong 5 phút.
+            Quét QR, chọn nước, thanh toán tức.
           </Text>
             <View style={styles.heroButtons}>
-          <TouchableOpacity
-            style={styles.btnPrimary}
-            onPress={() => navigation.navigate('Product')}
-            activeOpacity={0.8}
-          >
-            <Text style={styles.btnPrimaryText}>Khám phá thêm</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.btnSecondary}
-            onPress={() => navigation.navigate('Cart')}
-            activeOpacity={0.8}
-          >
-            <Text style={styles.btnGiohangText}>Giỏ hàng ({totalCount})</Text>
-          </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.heroButton, styles.btnPrimary]}
+                onPress={() => navigation.navigate('Product')}
+                activeOpacity={0.8}
+              >
+                <Text style={styles.btnPrimaryText}>Khám phá thêm</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.heroButton, styles.btnSecondary]}
+                onPress={() => navigation.navigate('Cart')}
+                activeOpacity={0.8}
+              >
+                <Text style={styles.btnGiohangText}>Giỏ hàng ({totalCount})</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -267,13 +267,21 @@ const styles = StyleSheet.create({
   heroButtons: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  btnPrimary: {
-    backgroundColor: '#e5f8ea',
+  heroButton: {
+    minWidth: 150,
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingHorizontal: 24,
     paddingVertical: 14,
     borderRadius: 12,
-    marginRight: 12,
+    marginHorizontal: 6,
+    marginBottom: 8,
+  },
+  btnPrimary: {
+    backgroundColor: '#e5f8ea',
   },
   btnPrimaryText: {
     fontWeight: '700',
@@ -283,9 +291,7 @@ const styles = StyleSheet.create({
   btnSecondary: {
     borderWidth: 1,
     borderColor: '#7ed0a3',
-    paddingHorizontal: 24,
-    paddingVertical: 14,
-    borderRadius: 12,
+    backgroundColor: 'transparent',
   },
   btnGiohangText: {
     color: '#e7ffed',
