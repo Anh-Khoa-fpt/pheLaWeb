@@ -113,6 +113,23 @@ const Home = () => {
           </View>
         ) : null}
 
+        <View style={styles.quickPages}>
+          <TouchableOpacity
+            style={styles.quickCard}
+            onPress={() => navigation.navigate('OrderQueue')}
+          >
+            <Text style={styles.quickTitle}>Đơn hàng chờ</Text>
+            <Text style={styles.quickLabel}>Xem đơn hàng chờ</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.quickCard, styles.quickCardLast]}
+            onPress={() => navigation.navigate('OrderReady')}
+          >
+            <Text style={styles.quickTitle}>Order sẵn sàng</Text>
+            <Text style={styles.quickLabel}>Thông báo đơn hàng sẵn sàng</Text>
+          </TouchableOpacity>
+        </View>
+
         <View style={styles.highlightSection}>
           {highlights.map((item, index) => (
             <View
@@ -307,6 +324,33 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 28,
+  },
+  quickPages: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+  },
+  quickCard: {
+    flex: 1,
+    backgroundColor: '#0b3d24',
+    borderRadius: 18,
+    padding: 16,
+    marginRight: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(150, 219, 176, 0.4)',
+  },
+  quickCardLast: {
+    marginRight: 0,
+  },
+  quickTitle: {
+    color: '#e9ffe8',
+    fontSize: 16,
+    fontWeight: '700',
+    marginBottom: 6,
+  },
+  quickLabel: {
+    color: '#c2ffd8',
+    fontSize: 14,
   },
   highlightCard: {
     flex: 1,

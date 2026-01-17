@@ -11,6 +11,8 @@ import Cart from './src/pages/Cart'
 import About from './src/pages/About'
 import Contact from './src/pages/Contact'
 import OrderHistory from './src/pages/OrderHistory'
+import OrderQueue from './src/pages/OrderQueue'
+import OrderReady from './src/pages/OrderReady'
 
 const Stack = createNativeStackNavigator()
 
@@ -31,6 +33,8 @@ export default function App() {
           <Stack.Screen name="Contact" component={Contact} />
           <Stack.Screen name="Cart" component={Cart} />
           <Stack.Screen name="OrderHistory" component={OrderHistory} />
+          <Stack.Screen name="OrderQueue" component={OrderQueue} />
+          <Stack.Screen name="OrderReady" component={OrderReady} />
         </Stack.Navigator>
       </NavigationContainer>
     </CartProvider>

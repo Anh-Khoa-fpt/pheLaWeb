@@ -12,7 +12,9 @@ import { useCart } from '../../contexts/CartContext'
 
 const navItems = [
   { label: 'Trang Chủ', route: 'Home' },
-  { label: 'Tất cả sản phẩm', route: 'Product' },
+  { label: 'Thực Đơn', route: 'Product' },
+  { label: 'Đơn hàng đang chuẩn bị', route: 'OrderQueue' },
+  { label: 'Đơn đã sẵn sàng', route: 'OrderReady' },
   { label: 'Giới Thiệu', route: 'About' },
   { label: 'Liên Hệ', route: 'Contact' },
   { label: 'Lịch sử đặt hàng', route: 'OrderHistory' },
