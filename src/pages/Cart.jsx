@@ -39,7 +39,8 @@ const Cart = () => {
   } = useCart()
 
   const orderCode = useMemo(
-    () => `MATTE-${Math.floor(Math.random() * 900000 + 100000)}`,
+    
+    () => `A${Math.floor(Math.random() * 900 + 100)}`,
     []
   )
 
